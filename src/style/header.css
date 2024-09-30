@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+  font-family: pretendard;
+}
+
+a {
+  text-decoration: none;
+}
+
+.headerTitle {
+  font-weight: 800;
+  font-size: 32px;
+  color: #414141;
+}
+
+.headerButton {
+  padding: 12px 40px 12px 24px;
+  border: 1px solid #dddddd;
+  border-radius: 15px;
+  position: relative;
+  display: inline-block;
+  color: #818181;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+}
+
+.arrowIcon {
+  position: absolute;
+  right: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerButtonList {
+  display: flex;
+  gap: 16px;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+}
+
+@media (max-width: 743px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .headerTitle {
+    font-size: 24px;
+  }
+  .headerButton {
+    padding: 12px 34px 12px 10px;
+  }
+}
