@@ -1,5 +1,6 @@
 import HeaderButton from "./Button";
 import HeaderTitle from "./Title";
+import "../../../style/header.css";
 
 export default function Header({
   title,
@@ -9,9 +10,9 @@ export default function Header({
   buttonTitle2,
 }) {
   return (
-    <div>
+    <div className="header">
       <HeaderTitle title={title} />
-      <div>
+      <div className="headerButtonList">
         <HeaderButton to={buttonTo1} title={buttonTitle1} />
         <HeaderButton to={buttonTo2} title={buttonTitle2} />
       </div>
