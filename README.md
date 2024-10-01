@@ -43,10 +43,6 @@ Database: PostgreSQL
 
 오늘의 습관
 
-#### 공용 컴포넌트
-
-GNB(Global Navigation Bar), nav
-
 ### 김차현
 
 홈 + 스터디 리스트 p + 스터디 만들기(스터디 정보입력)
@@ -85,7 +81,7 @@ GNB(Global Navigation Bar), nav
 - 상수 이름은 대문자 snake_case
 - 컴포넌트 이름은 PascalCase
 - 커스텀 훅은 커스텀 훅 이름은 항상 use로 시작하고 그 기능을 설명하는 CamelCase
-- 이벤트 핸들러는 handle + 이벤트명 CamelCase
+- 이벤트 핸들러는 handle + 이벤트명 CamelCased
 
 ## Git 컨벤션
 
