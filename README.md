@@ -75,7 +75,7 @@ Database: PostgreSQL
 
 ## 네이밍 컨벤션
 
-- React 컴포넌트 파일은 PascalCase 사용
+- React 컴포넌트 파일은 PascalCase사용
 - 다른 유틸리티 파일이나 훅 파일은 CamelCase
 - 변수 및 함수 이름은 CamelCase
 - 상수 이름은 대문자 snake_case
