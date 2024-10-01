@@ -3,7 +3,13 @@
   font-family: pretendard;
 }
 
+body {
+  margin: 0;
+}
+
 .habit {
+  left: 0;
+  top: 0;
   background-color: #f6f4ef;
   padding: 40px 0 150px;
 }
@@ -38,6 +44,16 @@
   font-size: 16px;
 }
 
+.habitInside {
+  max-width: 1168px;
+  height: 531px;
+  border-radius: 20px;
+  border: 1px solid #dddddd;
+  padding: 40px 24px;
+  margin: 0 auto;
+  margin-top: 24px;
+}
+
 /* 반응형 CSS */
 @media (max-width: 1199px) and (min-width: 744px) {
   .habit {
@@ -46,6 +62,9 @@
   .habitOutside {
     padding: 24px;
     max-height: 847px;
+  }
+  .habitInside {
+    margin-top: 40px;
   }
 }
 

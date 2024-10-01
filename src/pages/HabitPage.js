@@ -4,6 +4,7 @@ import "../style/habit.css";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   //현재 시간 표시
   useEffect(() => {
@@ -22,6 +23,11 @@ function HabitPage() {
     return () => clearInterval(intervalId);
   }, []);
 
+  //모달
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
     <Fragment>
       <div className="habit">
@@ -39,7 +45,19 @@ function HabitPage() {
             <p className="timeTitle">현재 시간</p>
             <div className="timeDisplay">{todayTime}</div>
           </div>
+          <div className="habitInside">
+            <h2>오늘의 습관</h2>
+            <div onClick={toggleModal} className="habitListChange">
+              목록수정
+            </div>
+          </div>
         </div>
+        {modalOpen && (
+          <div>
+            <p>list</p>
+            <button onclick={toggleModal}>취소</button>
+          </div>
+        )}
       </div>
     </Fragment>
   );
