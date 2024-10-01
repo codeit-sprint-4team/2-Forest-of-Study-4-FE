@@ -23,7 +23,7 @@ function HabitPage() {
     return () => clearInterval(intervalId);
   }, []);
 
-  //모달
+  //예시 모달
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
@@ -46,12 +46,16 @@ function HabitPage() {
             <div className="timeDisplay">{todayTime}</div>
           </div>
           <div className="habitInside">
-            <h2>오늘의 습관</h2>
-            <div onClick={toggleModal} className="habitListChange">
-              목록수정
+            <div className="habitTop">
+              <div className="habitTitle">오늘의 습관</div>
+              <div onClick={toggleModal} className="habitListChange">
+                목록수정
+              </div>
             </div>
+            <div className="habitList">list</div>
           </div>
         </div>
+        {/*예시 모달창*/}
         {modalOpen && (
           <div>
             <p>list</p>

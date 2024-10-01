@@ -52,6 +52,29 @@ body {
   padding: 40px 24px;
   margin: 0 auto;
   margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.habitTitle {
+  font-weight: 800;
+  font-size: 24px;
+  color: #414141;
+}
+
+.habitListChange {
+  font-weight: 500;
+  font-size: 14px;
+  color: #818181;
+  display: flex;
+  align-items: center;
+}
+
+.habitTop {
+  display: flex;
+  gap: 90px;
 }
 
 /* 반응형 CSS */
