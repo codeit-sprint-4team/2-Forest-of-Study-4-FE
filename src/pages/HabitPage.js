@@ -30,6 +30,15 @@ function HabitPage() {
     setModalOpen(!modalOpen);
   };
 
+  //checked
+  const handleHabitClick = (id) => {
+    setHabits((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.id === id ? { ...habit, checked: !habit.checked } : habit
+      )
+    );
+  };
+
   return (
     <>
       <div className="habit">
@@ -67,6 +76,7 @@ function HabitPage() {
                     <div
                       key={habit.id}
                       className={`habitItem ${habit.checked ? "checked" : ""}`}
+                      onClick={() => handleHabitClick(habit.id)}
                     >
                       {habit.content}
                     </div>
