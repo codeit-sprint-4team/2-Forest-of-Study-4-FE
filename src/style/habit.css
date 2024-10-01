@@ -85,6 +85,10 @@ body {
   overflow-y: auto;
 }
 
+.habitItemContainer {
+  height: 100%;
+}
+
 /* Chrome, Safari에서 스크롤바 숨기기 */
 .habitList::-webkit-scrollbar {
   display: none;

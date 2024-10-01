@@ -62,7 +62,7 @@ function HabitPage() {
                   </p>
                 </div>
               ) : (
-                <div>
+                <div className="habitItemContainer">
                   {habits.map((habit) => (
                     <div
                       key={habit.id}
