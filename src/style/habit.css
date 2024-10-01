@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  font-family: pretendard;
 }
 
 body {
@@ -26,6 +25,20 @@ body {
   background-color: #ffffff;
 }
 
+.habitInside {
+  max-width: 1168px;
+  height: 531px;
+  border-radius: 20px;
+  border: 1px solid #dddddd;
+  padding: 40px 24px;
+  margin: 0 auto;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
 .timeTitle {
   margin-top: 16px;
   margin-bottom: 8px;
@@ -42,20 +55,6 @@ body {
   color: #414141;
   font-weight: 500;
   font-size: 16px;
-}
-
-.habitInside {
-  max-width: 1168px;
-  height: 531px;
-  border-radius: 20px;
-  border: 1px solid #dddddd;
-  padding: 40px 24px;
-  margin: 0 auto;
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
 }
 
 .habitTitle {
@@ -75,6 +74,42 @@ body {
 .habitTop {
   display: flex;
   gap: 90px;
+}
+
+.habitList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* Chrome, Safari에서 스크롤바 숨기기 */
+.habitList::-webkit-scrollbar {
+  display: none;
+}
+
+.noneHabitList {
+  font-weight: 500;
+  font-size: 20px;
+  color: #818181;
+  text-align: center;
+}
+
+.habitItem {
+  width: 400px;
+  height: 54px;
+  border: none;
+  border-radius: 20px;
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #818181;
+  margin-bottom: 20px;
 }
 
 /* 반응형 CSS */
@@ -98,5 +133,9 @@ body {
   .habitOutside {
     padding: 16px;
     max-height: 780px;
+  }
+  .habitItem {
+    width: 280px;
+    height: 54px;
   }
 }

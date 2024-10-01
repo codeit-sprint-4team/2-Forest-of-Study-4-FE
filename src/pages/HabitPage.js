@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Header from "../components/commons/header/Header";
 import "../style/habit.css";
+import { habitData } from "../mock";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [habits, setHabits] = useState(habitData);
 
   //현재 시간 표시
   useEffect(() => {
@@ -29,18 +31,16 @@ function HabitPage() {
   };
 
   return (
-    <Fragment>
+    <>
       <div className="habit">
         <div className="habitOutside">
-          <div>
-            <Header
-              title="title"
-              buttonTo1="/"
-              buttonTo2="/"
-              buttonTitle1="오늘의 집중"
-              buttonTitle2="홈"
-            />
-          </div>
+          <Header
+            title="title"
+            buttonTo1="/"
+            buttonTo2="/"
+            buttonTitle1="오늘의 집중"
+            buttonTitle2="홈"
+          />
           <div>
             <p className="timeTitle">현재 시간</p>
             <div className="timeDisplay">{todayTime}</div>
@@ -52,18 +52,39 @@ function HabitPage() {
                 목록수정
               </div>
             </div>
-            <div className="habitList">list</div>
+            <div className="habitList">
+              {habits.length === 0 ? (
+                <div className="noneHabitList">
+                  <p>
+                    아직 습관이 없어요
+                    <br />
+                    목록 수정을 눌러 습관을 생성해보세요
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  {habits.map((habit) => (
+                    <div
+                      key={habit.id}
+                      className={`habitItem ${habit.checked ? "checked" : ""}`}
+                    >
+                      {habit.content}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        {/*예시 모달창*/}
+        {/* 예시모달창 */}
         {modalOpen && (
           <div>
             <p>list</p>
-            <button onclick={toggleModal}>취소</button>
+            <button onClick={toggleModal}>취소</button>
           </div>
         )}
       </div>
-    </Fragment>
+    </>
   );
 }
 
