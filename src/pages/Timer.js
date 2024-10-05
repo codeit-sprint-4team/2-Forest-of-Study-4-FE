@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
-  const [timeLeft, setTimeLeft] = useState(1500); // 25분 = 1500초 (기본값)
+  const defaultTime = 1500; // 기본값 25분 (1500초)
+  const [timeLeft, setTimeLeft] = useState(defaultTime); // 타이머 시간
   const [isRunning, setIsRunning] = useState(false);
   const [isEditing, setIsEditing] = useState(false); // 시간을 편집 중인지 여부
   const [inputTime, setInputTime] = useState("25:00"); // 사용자 입력 시간
   const [timerStarted, setTimerStarted] = useState(false); // 타이머가 시작되었는지 여부
   const [isPaused, setIsPaused] = useState(false); // 타이머가 일시정지되었는지 여부
+  const [isOvertime, setIsOvertime] = useState(false); // 시간 초과 여부
 
   useEffect(() => {
     let timer;
-    if (isRunning && timeLeft > 0) {
+    if (isRunning) {
       timer = setInterval(() => {
         setTimeLeft(prevTime => prevTime - 1);
       }, 1000);
-    } else if (timeLeft === 0) {
-      clearInterval(timer);
+      
+      // 타이머가 0에 도달하면 초과 상태로 변경하고, 계속 진행되도록 설정
+      if (timeLeft <= 0) {
+        setIsOvertime(true); // 시간 초과 상태로 변경
+      }
     }
+
     return () => clearInterval(timer);
   }, [isRunning, timeLeft]);
+
+  // 시간을 바로 반영하고, 타이머가 시작되지 않았다면 UI에도 즉시 업데이트
+  useEffect(() => {
+    if (!timerStarted && !isRunning && !isEditing) {
+      const [minutes, seconds] = inputTime.split(":").map(Number);
+      setTimeLeft(minutes * 60 + (seconds || 0)); // 시간을 초로 변환해서 설정
+    }
+  }, [inputTime]);
 
   const startTimer = () => {
     if (isPaused) {
@@ -29,6 +43,7 @@ const Timer = () => {
     }
     setTimerStarted(true);  // 타이머 시작됨을 표시
     setIsPaused(false);     // 일시 정지 상태 해제
+    setIsOvertime(false);   // 초과 상태 해제
   };
 
   const pauseTimer = () => {
@@ -38,9 +53,15 @@ const Timer = () => {
 
   const resetTimer = () => {
     setIsRunning(false);
-    setTimeLeft(inputTimeToSeconds(inputTime)); // 타이머 리셋
+    setTimeLeft(defaultTime); // 기본값으로 리셋 (25분)
+    setInputTime("25:00"); // 입력 시간도 기본값으로 리셋
     setTimerStarted(false); // 타이머가 다시 리셋되면 시작 상태가 아님
     setIsPaused(false);     // 일시 정지 상태 해제
+    setIsOvertime(false);   // 초과 상태 해제
+  };
+
+  const stopTimer = () => {
+    resetTimer(); // 타이머를 리셋하고 초기 상태로 되돌림
   };
 
   const inputTimeToSeconds = (time) => {
@@ -50,6 +71,7 @@ const Timer = () => {
 
   const handleTimeClick = () => {
     setIsEditing(true); // 시간을 편집 상태로 변경
+    setIsRunning(false); // 시간을 편집하는 동안에는 타이머가 작동하지 않음
   };
 
   const handleInputChange = (e) => {
@@ -80,65 +102,91 @@ const Timer = () => {
       ) : (
         <h2 
           onClick={handleTimeClick} 
-          style={{ color: timerStarted ? 'red' : 'black', fontSize: '48px', cursor: 'pointer', marginBottom: '20px', textAlign: 'center' }} // 타이머가 시작되면 빨간색
+          style={{ 
+            color: isOvertime ? '#818181' : (timerStarted ? 'red' : 'black'), // 시간 초과 시 색상 변경
+            fontSize: '48px', 
+            cursor: 'pointer', 
+            marginBottom: '20px', 
+            textAlign: 'center' 
+          }}
         >
-          {Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
+          {isOvertime && timeLeft < 0 
+            ? `-${Math.abs(Math.floor(timeLeft / 60))}:${Math.abs(timeLeft % 60) < 10 ? `0${Math.abs(timeLeft % 60)}` : Math.abs(timeLeft % 60)}` 
+            : `${Math.floor(timeLeft / 60)}:${timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}`
+          }
         </h2>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
-        {/* Pause 버튼 */}
-        {timerStarted && (
+      {/* 시간 초과 시 Stop 버튼만 표시 */}
+      {isOvertime && timeLeft < 0 ? (
+        <button 
+          onClick={stopTimer} 
+          style={{
+            backgroundColor: '#A3C182', 
+            color: 'white', 
+            padding: '10px 20px', 
+            fontSize: '16px', 
+            borderRadius: '10px'
+          }}
+        >
+          Stop!
+        </button>
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+          {/* Pause 버튼 */}
+          {timerStarted && (
+            <button 
+              onClick={pauseTimer} 
+              disabled={isPaused}  // 일시 정지 중일 때 비활성화
+              style={{
+                backgroundColor: isPaused ? '#818181' : '#6E9A52', // 일시 정지 시 색상 변경
+                color: 'white', 
+                padding: '10px 20px', 
+                fontSize: '16px', 
+                borderRadius: '10px',
+                cursor: isPaused ? 'not-allowed' : 'pointer' // 비활성화 시 커서 변경
+              }}
+            >
+              Pause
+            </button>
+          )}
+
+          {/* Start 버튼 - 타이머 시작 후 비활성화 상태로 유지 */}
           <button 
-            onClick={pauseTimer} 
-            disabled={isPaused}  // 일시 정지 중일 때 비활성화
+            onClick={startTimer} 
+            disabled={!isPaused && timerStarted}  // 타이머 시작 중이거나 정지 상태가 아닐 때 비활성화
             style={{
-              backgroundColor: isPaused ? '#818181' : '#6E9A52', // 일시 정지 시 색상 변경
+              backgroundColor: (!isPaused && timerStarted) ? '#818181' : '#A3C182',  // 비활성화 시 색상 변경
               color: 'white', 
               padding: '10px 20px', 
               fontSize: '16px', 
               borderRadius: '10px',
-              cursor: isPaused ? 'not-allowed' : 'pointer' // 비활성화 시 커서 변경
+              cursor: (!isPaused && timerStarted) ? 'not-allowed' : 'pointer' // 비활성화 시 커서 변경
             }}
           >
-            Pause
+            Start!
           </button>
-        )}
 
-        {/* Start 버튼 - 타이머 시작 후 비활성화 상태로 유지 */}
-        <button 
-          onClick={startTimer} 
-          disabled={!isPaused && timerStarted}  // 타이머 시작 중이거나 정지 상태가 아닐 때 비활성화
-          style={{
-            backgroundColor: (!isPaused && timerStarted) ? '#818181' : '#A3C182',  // 비활성화 시 색상 변경
-            color: 'white', 
-            padding: '10px 20px', 
-            fontSize: '16px', 
-            borderRadius: '10px',
-            cursor: (!isPaused && timerStarted) ? 'not-allowed' : 'pointer' // 비활성화 시 커서 변경
-          }}
-        >
-          Start!
-        </button>
-
-        {/* Reset 버튼 */}
-        {timerStarted && (
-          <button 
-            onClick={resetTimer} 
-            style={{
-              backgroundColor: '#A3C182', 
-              color: 'white', 
-              padding: '10px 20px', 
-              fontSize: '16px', 
-              borderRadius: '10px'
-            }}
-          >
-            Reset
-          </button>
-        )}
-      </div>
+          {/* Reset 버튼 */}
+          {timerStarted && (
+            <button 
+              onClick={resetTimer} 
+              style={{
+                backgroundColor: '#A3C182', 
+                color: 'white', 
+                padding: '10px 20px', 
+                fontSize: '16px', 
+                borderRadius: '10px'
+              }}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
 export default Timer;
+
