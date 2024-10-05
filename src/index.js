@@ -1,6 +1,12 @@
 import React from "react";
-import ReactDom from "react-dom/client";
+import ReactDOM from "react-dom/client"; // 새로운 import 경로
+import "./index.css";
 import App from "./App";
 
-const root = ReactDom.createRoot(document.getElementById("root"));
-root.render(<App />, root);
+// 기존 ReactDOM.render() 대신 ReactDOM.createRoot() 사용
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
