@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import sticker_empty from "../assets/images/sticker_empty.png";
-import sticker_light_green_100_01 from "../assets/images/sticker_light_green_100_01.png";
+import sticker_empty from "../../public/imgs/sticker_empty.png";
+import sticker_light_green_100_01 from "../../public/imgs/sticker_light_green_100_01.png";
 import { habitData } from "../mock";
 import "../style/Habittable.css"
 
