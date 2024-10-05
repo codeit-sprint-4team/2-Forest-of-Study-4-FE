@@ -9,10 +9,6 @@ body {
 }
 
 .globalForest {
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 100;
   background-color: #f6f4ef;
   width: 100%;
   margin: 0 auto;
