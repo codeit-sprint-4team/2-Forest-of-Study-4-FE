@@ -1,8 +1,10 @@
+import Gnb from "../components/commons/gnb/Gnb";
 import Header from "../components/commons/header/Header";
 
 export default function Test() {
   return (
     <div>
+      <Gnb />
       <Header
         title="title"
         buttonTo1=""
