@@ -5,7 +5,7 @@ import Modal from "./components/commons/modal/Modal";
 export default function App() {
   return (
     <Router>
-      <Routes>
+        <Route path="/habits" element={<HabitPage />} 
         <Route path="/" element={<Test />} />
         <Route path="/modal" element={<Modal />} />
       </Routes>
