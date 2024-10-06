@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  font-family: pretendard;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.globalForest {
+  background-color: #f6f4ef;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 220px;
+}
+
+.globalForestIcon {
+  width: 181px;
+  height: 60px;
+}
+
+.createStudyButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+  .globalForest {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 743px) {
+  .globalForest {
+    padding: 32px 16px;
+  }
+  .globalForestIcon {
+    width: 106px;
+    height: 35px;
+  }
+}
