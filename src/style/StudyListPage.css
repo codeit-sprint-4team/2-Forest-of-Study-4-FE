@@ -1,0 +1,157 @@
+.study-list-page {
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f4ef;
+}
+
+.frame {
+  width: 100%;
+  max-width: 1200px; /* 고정된 너비 대신 최대 너비 사용 */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.browse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-sort {
+  display: flex;
+  align-items: center;
+}
+
+.search-sort input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.search-sort select {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.study-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.study-card {
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  width: 358px;
+  height: 243px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.study-card-inner {
+  width: 298px;
+  height: 183px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.study-content {
+  color: black;
+}
+
+.image-background .study-content {
+  color: white;
+}
+
+.load-more {
+  width: 280px;
+  height: 53px;
+  background-color: #ffffff;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.load-more:hover {
+  background-color: #f0f0f0;
+  border: 1px solid #4caf50;
+}
+
+.study-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 1200px) {
+  .study-list {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 744px) {
+  .study-list-page {
+    padding-top: 50px;
+  }
+  .study-list {
+    gap: 20px;
+    justify-content: center;
+  }
+  .study-card {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 743px) {
+  .study-list-page {
+    padding-top: 20px;
+  }
+  .study-list {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .study-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+  .study-card-inner {
+    width: 100%;
+    height: auto;
+  }
+  .load-more {
+    width: 100%;
+    max-width: 400px;
+  }
+}

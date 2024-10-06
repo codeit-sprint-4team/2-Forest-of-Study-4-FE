@@ -1,12 +1,13 @@
-import React from "react";
-import StudyListPage from "./pages/StudyListPage"; // 올바른 경로로 import
-
-function App() {
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HabitPage from "./pages/HabitPage";
+import StudyListPage from "./pages/StudyListPage";
+export default function App() {
   return (
-    <div>
-      <StudyListPage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/habit" element={<HabitPage />} />
+        <Route path="/" element={<StudyListPage />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

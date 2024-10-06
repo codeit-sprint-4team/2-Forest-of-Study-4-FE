@@ -1,80 +1,6 @@
 import React, { useState } from "react";
-import "./StudyListPage.css";
-
-const mockStudyData = [
-  {
-    id: 1,
-    title: "이유디의 UX 스터디",
-    description: "Slow And Steady Wins The Race!!",
-    points: 310,
-    participants: 37,
-    thumbsUp: 26,
-    comments: 14,
-    status: "진행 중",
-    cardColor: "",
-    image: "./imgs/study1.png",
-  },
-  {
-    id: 2,
-    title: "K.K.의 UX 스터디",
-    description: "나비보벳따우",
-    points: 310,
-    participants: 29,
-    thumbsUp: 26,
-    comments: 14,
-    status: "완료",
-    cardColor: "#E1EDDE",
-    image: "",
-  },
-  {
-    id: 3,
-    title: "연우 의 개발공장",
-    description: "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)",
-    points: 50,
-    participants: 12,
-    thumbsUp: 11,
-    comments: 9,
-    status: "진행 중",
-    cardColor: "#FFF1CC",
-    image: "",
-  },
-  {
-    id: 4,
-    title: "이유디의 UX 스터디",
-    description: "Slow And Steady Wins The Race!!",
-    points: 310,
-    participants: 37,
-    thumbsUp: 26,
-    comments: 14,
-    status: "진행 중",
-    cardColor: "",
-    image: "./imgs/study1.png",
-  },
-  {
-    id: 5,
-    title: "K.K.의 UX 스터디",
-    description: "나비보벳따우",
-    points: 310,
-    participants: 29,
-    thumbsUp: 26,
-    comments: 14,
-    status: "완료",
-    cardColor: "#E1EDDE",
-    image: "",
-  },
-  {
-    id: 6,
-    title: "연우 의 개발공장",
-    description: "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)",
-    points: 50,
-    participants: 12,
-    thumbsUp: 11,
-    comments: 9,
-    status: "진행 중",
-    cardColor: "#FFF1CC",
-    image: "",
-  },
-];
+import "../style/StudyListPage.css";
+import { mockStudyData } from "../mock";
 
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -106,7 +32,7 @@ const StudyListPage = () => {
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
-          {sortedStudies.slice(0, 2).map((study) => (
+          {sortedStudies.slice(0, 3).map((study) => (
             <StudyCard key={study.id} study={study} />
           ))}
         </div>
@@ -150,7 +76,7 @@ const StudyListPage = () => {
 
 const StudyCard = ({ study }) => {
   const cardStyle = study.cardColor
-    ? { backgroundColor: study.cardColor } // 색상이 있는 경우 배경색만 지정
+    ? { backgroundColor: study.cardColor }
     : {
         backgroundImage: `url(${study.image})`,
         backgroundSize: "cover",
@@ -161,15 +87,25 @@ const StudyCard = ({ study }) => {
 
   return (
     <div className={`study-card ${hasImageBackground}`} style={cardStyle}>
-      <div className="study-content">
-        <h3>{study.title}</h3>
-        <p>{study.description}</p>
+      <div className="study-card-frame">
+        <div className="study-content">
+          <h3>{study.title}</h3>
+          <p>{study.description}</p>
+        </div>
 
         <div className="study-info">
-          <div>포인트: {study.points}</div>
-          <div>참여자: {study.participants}</div>
-          <div>좋아요: {study.thumbsUp}</div>
-          <div>댓글: {study.comments}</div>
+          <div className="participants">
+            <img src="/path-to-participant-icon" alt="참여자" />
+            {study.participants}
+          </div>
+          <div className="likes">
+            <img src="/path-to-likes-icon" alt="좋아요" />
+            {study.thumbsUp}
+          </div>
+          <div className="comments">
+            <img src="/path-to-comments-icon" alt="댓글" />
+            {study.comments}
+          </div>
         </div>
       </div>
     </div>
