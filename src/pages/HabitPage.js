@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Header from "../components/commons/header/Header";
 import "../style/habit.css";
-import { habitData } from "../mock";
+// import { habitData } from "../mock";
+import { fetchHabits } from "../api/habitApi";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [habits, setHabits] = useState(habitData);
+  const [habits, setHabits] = useState([]);
 
   //현재 시간 표시
   useEffect(() => {
@@ -17,12 +18,24 @@ function HabitPage() {
         minute: "numeric",
         hour12: true,
       });
-      const formattedDate = `${todayTime.getFullYear()}-${todayTime.getMonth()}-${todayTime.getDate()} ${minuteSecond}`;
+      const formattedDate = `${todayTime.getFullYear()}-${
+        todayTime.getMonth() + 1
+      }-${todayTime.getDate()} ${minuteSecond}`;
       setTodayTime(formattedDate);
     };
     updateTime();
     const intervalId = setInterval(updateTime, 1000);
     return () => clearInterval(intervalId);
+  }, []);
+
+  // 백엔드에서 습관 데이터 가져오기
+  useEffect(() => {
+    const loadHabits = async () => {
+      const data = await fetchHabits();
+      setHabits(data);
+    };
+
+    loadHabits();
   }, []);
 
   //예시 모달
@@ -78,7 +91,7 @@ function HabitPage() {
                       className={`habitItem ${habit.checked ? "checked" : ""}`}
                       onClick={() => handleHabitClick(habit.id)}
                     >
-                      {habit.content}
+                      {habit.habitName}
                     </div>
                   ))}
                 </div>
