@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.habit {
+  left: 0;
+  top: 0;
+  background-color: #f6f4ef;
+  padding: 40px 0 150px;
+}
+
+.habitOutside {
+  width: 95%;
+  max-width: 1248px;
+  height: 100%;
+  max-height: 863px;
+  border-radius: 20px;
+  border: none;
+  padding: 40px;
+  margin: 0 auto;
+  background-color: #ffffff;
+}
+
+.habitInside {
+  max-width: 1168px;
+  height: 531px;
+  border-radius: 20px;
+  border: 1px solid #dddddd;
+  padding: 40px 24px;
+  margin: 0 auto;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.timeTitle {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #818181;
+}
+
+.timeDisplay {
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  padding: 8px 12px;
+  color: #414141;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.habitTitle {
+  font-weight: 800;
+  font-size: 24px;
+  color: #414141;
+}
+
+.habitListChange {
+  font-weight: 500;
+  font-size: 14px;
+  color: #818181;
+  display: flex;
+  align-items: center;
+}
+
+.habitTop {
+  display: flex;
+  gap: 90px;
+}
+
+.habitList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.habitItemContainer {
+  height: 100%;
+}
+
+/* Chrome, Safari에서 스크롤바 숨기기 */
+.habitList::-webkit-scrollbar {
+  display: none;
+}
+
+.noneHabitList {
+  font-weight: 500;
+  font-size: 20px;
+  color: #818181;
+  text-align: center;
+}
+
+.habitItem {
+  width: 400px;
+  height: 54px;
+  border: none;
+  border-radius: 20px;
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #818181;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.habitItem.checked {
+  color: #ffffff;
+  background-color: #99c08e;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+  .habit {
+    padding: 16px 0 190px;
+  }
+  .habitOutside {
+    padding: 24px;
+    max-height: 847px;
+  }
+  .habitInside {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 743px) {
+  .habit {
+    padding: 20px 0 170px;
+  }
+  .habitOutside {
+    padding: 16px;
+    max-height: 780px;
+  }
+  .habitItem {
+    width: 280px;
+    height: 54px;
+  }
+}

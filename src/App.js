@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Test from "./pages/test";
+import Test from "./pages/testPage";
 import StudyPage from "./pages/StudyPage/StudyPage";
+
 
 export default function App() {
   return (
