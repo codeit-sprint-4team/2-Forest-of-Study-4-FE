@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Header from "../components/commons/header/Header";
+import Gnb from "../components/commons/gnb/Gnb";
 import "../style/habit.css";
 import { habitData } from "../mock";
 
@@ -41,6 +42,7 @@ function HabitPage() {
 
   return (
     <>
+      <Gnb />
       <div className="habit">
         <div className="habitOutside">
           <Header
