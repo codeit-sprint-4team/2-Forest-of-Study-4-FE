@@ -6,16 +6,26 @@
     background-color: #ffffff;
     border-radius: 20px;
     padding: 40px;
-    gap: 10px
+    gap: 10px;
+    margin: 0 auto;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+.study {
     background-color: #f6f4ef;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 1199px) and (min-width: 744px) {
+    .study-container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 743px) {
+    .study-container {
+        width: 95%;
+        height: auto; 
+    }
 }

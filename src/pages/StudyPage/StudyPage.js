@@ -8,19 +8,21 @@ const StudyPage = () => {
   return (
     <>
       <Gnb/>
-      <div className="study-container">
-        <Header
-          title="연우"
-          buttonTo1="/"
-          buttonTo2="/"
-          buttonTitle1="오늘의 습관"
-          buttonTitle2="오늘의 집중"
-        />
-        <Introduce 
-          content="오늘 하루도 화이팅 :)"
-          point="310"
-        />
-        <HabitTable />
+      <div className="study">
+        <div className="study-container">
+          <Header
+            title="연우"
+            buttonTo1="/"
+            buttonTo2="/"
+            buttonTitle1="오늘의 습관"
+            buttonTitle2="오늘의 집중"
+          />
+          <Introduce 
+            content="오늘 하루도 화이팅 :)"
+            point="310"
+          />
+          <HabitTable />
+        </div>
       </div>
     </>
   );

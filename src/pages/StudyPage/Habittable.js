@@ -45,7 +45,6 @@ const HabitTable = () => {
                       CheckHabit[habitIndex][dayIndex] ? "Checked" : "Unchecked"
                     }
                     onClick={() => toggleCheck(habitIndex, dayIndex)}
-                    style={{ cursor: "pointer", width: "40px", height: "40px" }}
                   />
                 </td>
               ))}

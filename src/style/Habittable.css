@@ -6,6 +6,7 @@
     padding: 40px;
     border-radius: 20px;
     border: 1px solid #ddd;
+    overflow-x: auto;
 }
 
 .habit-title {
@@ -17,7 +18,7 @@
 
 .habit-table {
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;
 }
 
 .habit-table th, .habit-table td {
@@ -34,7 +35,4 @@
     font-weight: 600;
 }
 
-.habit-table img {
-    width: 40px;
-    height: 40px;
-}
+
