@@ -1,0 +1,40 @@
+.habit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+.habit-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.habit-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.habit-table th, .habit-table td {
+    border: none;
+    padding: 16px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.1rem;
+}
+
+.habit-table th {
+    color: #666;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.habit-table img {
+    width: 40px;
+    height: 40px;
+}
