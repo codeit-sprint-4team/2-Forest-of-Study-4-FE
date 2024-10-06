@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Header from "../components/commons/header/Header";
 import "../style/habit.css";
 // import { habitData } from "../mock";
-import { fetchHabits } from "../api/habitApi";
+import { fetchHabits, updateHabitChecked } from "../api/habitApi";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
@@ -44,10 +44,11 @@ function HabitPage() {
   };
 
   //checked
-  const handleHabitClick = (id) => {
+  const handleHabitClick = async (id, checked) => {
+    const updatedHabit = await updateHabitChecked(id, !checked);
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
-        habit.id === id ? { ...habit, checked: !habit.checked } : habit
+        habit.id === id ? { ...habit, checked: updatedHabit.checked } : habit
       )
     );
   };
@@ -89,7 +90,7 @@ function HabitPage() {
                     <div
                       key={habit.id}
                       className={`habitItem ${habit.checked ? "checked" : ""}`}
-                      onClick={() => handleHabitClick(habit.id)}
+                      onClick={() => handleHabitClick(habit.id, habit.checked)}
                     >
                       {habit.habitName}
                     </div>

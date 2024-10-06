@@ -5,7 +5,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/habit" element={<HabitPage />} />
+        <Route path="/habits" element={<HabitPage />} />
       </Routes>
     </Router>
   );
