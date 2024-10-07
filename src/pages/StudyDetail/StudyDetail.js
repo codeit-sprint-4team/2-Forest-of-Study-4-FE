@@ -4,7 +4,7 @@ import Introduce from "./Introduce.js";
 import "../../style/StudyDetail.css";
 import Gnb from "../../components/commons/gnb/Gnb.js"
 
-const StudyPage = () => {
+const StudyDetail = () => {
   return (
     <>
       <Gnb/>
@@ -12,8 +12,8 @@ const StudyPage = () => {
         <div className="study-container">
           <Header
             title="연우"
-            buttonTo1="/"
-            buttonTo2="/"
+            buttonTo1="/habits"
+            buttonTo2="/timer"
             buttonTitle1="오늘의 습관"
             buttonTitle2="오늘의 집중"
           />
@@ -27,4 +27,4 @@ const StudyPage = () => {
     </>
   );
 };
-export default StudyPage;
+export default StudyDetail;
