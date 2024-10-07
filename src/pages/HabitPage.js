@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
 import Modal from "../components/commons/modal/Modal";
+import { HabitList } from "../components/HabitList";
 import "../style/habit.css";
 // import { habitData } from "../mock";
 import { fetchHabits, updateHabitChecked } from "../api/habitApi";
@@ -106,7 +107,7 @@ function HabitPage() {
         {modalOpen && (
           <Modal
             title="목록 수정"
-            modalContent="모달 내용"
+            modalContent={<HabitList />}
             exitText="취소"
             buttonText="수정 완료"
             handleButtonClick={toggleModal}
