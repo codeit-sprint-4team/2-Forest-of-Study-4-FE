@@ -1,4 +1,4 @@
-.modal {
+.CommonModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,19 +10,83 @@
   align-items: center;
   z-index: 1000;
   flex-direction: column;
+  position: fixed;
 }
 
-.modal-content {
-  text-align: center;
-  background-color: #ffffff;
-  padding: 10px;
+.modalBox {
+  width: 648px;
+  background-color: white;
 }
 
-.submit-button {
+.submitButton {
   background-color: #99c08e;
-  color: #ffffff;
-  font-size: 18px;
-  border-radius: 16px;
-  padding: 10px;
+  width: 288px;
+  height: 58px;
+  border-radius: 15px;
   border: none;
+  padding: 14px 105px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.modalTitle {
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalContent {
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalButton {
+  padding: 24px 24px 40px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.modalClose {
+  width: 288px;
+  height: 58px;
+  border-radius: 15px;
+  border: none;
+  padding: 14px 105px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #818181;
+}
+
+.movePage {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  gap: 20px;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+}
+
+@media (max-width: 743px) {
+  .modalBox {
+    width: 344px;
+  }
+  .modalClose {
+    width: 140px;
+    height: 58px;
+    padding: 14px 33px;
+  }
+  .submitButton {
+    width: 140px;
+    height: 58px;
+    padding: 14px 33px;
+  }
+  .modalImg {
+    width: 312px;
+    height: 58px;
+  }
 }
