@@ -16,6 +16,8 @@
 .modalBox {
   width: 648px;
   background-color: white;
+  border-radius: 20px;
+  padding: 0 16px;
 }
 
 .submitButton {
@@ -74,7 +76,7 @@
 
 @media (max-width: 743px) {
   .modalBox {
-    width: 344px;
+    width: 376px;
   }
   .modalClose {
     width: 140px;
