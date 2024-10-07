@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "../style/StudyListPage.css";
+import "../style/Gnb.css";
 import { mockStudyData } from "../mock";
+import { Link } from "react-router-dom";
 
+const GNB = () => {
+  return (
+    <div className="globalForest">
+      <img
+        src="/imgs/globalForest.png"
+        alt="Global Forest"
+        className="globalForestIcon"
+      />
+      <Link to="/createStudy" className="createStudyButton">
+        <img src="/imgs/createStudyIcon3.png" alt="스터디 만들기 아이콘" />
+      </Link>
+    </div>
+  );
+};
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
@@ -17,8 +33,6 @@ const StudyListPage = () => {
   const filteredStudies = mockStudyData.filter((study) =>
     study.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  localStorage.removeItem("recentStudies"); //localstorage 의 데이터를 비우는 부분 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   const sortedStudies = [...filteredStudies].sort((a, b) => {
     if (sortOption === "recent") {
@@ -37,7 +51,6 @@ const StudyListPage = () => {
   };
 
   const handleStudyClick = (study) => {
-    // 클릭한 스터디를 최근 스터디 리스트에 추가
     const updatedRecentStudies = [
       study,
       ...recentStudies.filter((s) => s.id !== study.id),
@@ -48,6 +61,8 @@ const StudyListPage = () => {
 
   return (
     <div className="study-list-page">
+      <GNB />
+
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
