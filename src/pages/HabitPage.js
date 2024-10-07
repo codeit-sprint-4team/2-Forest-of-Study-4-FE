@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
 import Modal from "../components/commons/modal/Modal";

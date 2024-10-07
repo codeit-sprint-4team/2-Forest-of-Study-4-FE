@@ -1,0 +1,73 @@
+.rowHabit {
+  display: flex;
+}
+
+.deleteIcon {
+  cursor: pointer;
+  border: none;
+  background-color: #ffffff;
+  padding: 0;
+}
+
+.deleteIconImg {
+  margin: 0 0 17px 10px;
+}
+
+.addHabitButton {
+  width: 400px;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #414141;
+  border-radius: 20px;
+}
+
+.plus {
+  font-size: 30px;
+  color: #414141;
+}
+
+.addHabitButton {
+  cursor: pointer;
+}
+
+.habitInput {
+  width: 400px;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeeeee;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #818181;
+  text-align: center;
+}
+
+.habitInput:focus {
+  border: 2px solid #414141;
+  outline: none;
+}
+
+.habitInputContainer {
+  display: flex;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+}
+
+@media (max-width: 743px) {
+  .addHabitButton {
+    width: 280px;
+    height: 54px;
+  }
+  .habitInput {
+    width: 280px;
+    height: 54px;
+  }
+}
