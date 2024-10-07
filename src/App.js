@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Test from "./pages/testPage";
 import Modal from "./components/commons/modal/Modal";
@@ -6,9 +7,8 @@ import TestPage from "./pages/testPage.js";
 import StudyPage from "./pages/StudyPage"; // 페이지 컴포넌트 가져오기
 
 // src/App.js
-import React from 'react';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Routes>
@@ -20,5 +20,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
