@@ -1,7 +1,7 @@
 // src/components/StudyItem.js
 import React, { useState } from "react";
 import StudyEditModal from "./StudyEditModal";
-import "../style/Study.css";
+import "../style/StudyEdit.css";
 
 const StudyItem = ({ study, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);

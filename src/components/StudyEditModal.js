@@ -1,6 +1,6 @@
 // src/components/StudyEditModal.js
 import React, { useState } from "react";
-import "../style/Study.css";
+import "../style/StudyEdit.css";
 
 const StudyEditModal = ({ study, onClose, onSave }) => {
   const [formData, setFormData] = useState({ ...study });
