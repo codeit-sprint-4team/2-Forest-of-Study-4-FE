@@ -9,7 +9,7 @@ const StudyDetail = () => {
     <>
       <Gnb/>
       <div className="study">
-        <div className="study-container">
+        <div className="studyContainer">
           <Header
             title="연우"
             buttonTo1="/habits"

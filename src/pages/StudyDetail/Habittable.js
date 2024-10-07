@@ -18,9 +18,9 @@ const HabitTable = () => {
   };
 
   return (
-    <div className="habit-container">
-      <h2 className="habit-title">습관 기록표</h2>
-      <table className="habit-table">
+    <div className="habitContainer">
+      <h2 className="habitTitle">습관 기록표</h2>
+      <table className="habitTable">
         <thead>
           <tr>
             <th></th>
