@@ -31,6 +31,7 @@
 }
 
 .modalTitle {
+  margin: 0;
   padding: 40px 24px;
   display: flex;
   justify-content: center;
@@ -43,7 +44,7 @@
 }
 
 .modalButton {
-  padding: 24px 24px 40px 24px;
+  padding: 40px 24px;
   display: flex;
   justify-content: center;
   gap: 24px;
