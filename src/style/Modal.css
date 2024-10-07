@@ -30,6 +30,7 @@
   font-weight: 400;
   font-size: 18px;
   color: #ffffff;
+  white-space: nowrap;
 }
 
 .modalTitle {
