@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/StudyListPage.css";
 import { mockStudyData } from "../mock";
 
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
-  const [visibleStudies, setVisibleStudies] = useState(3);
+  const [visibleStudies, setVisibleStudies] = useState(6);
+  const [recentStudies, setRecentStudies] = useState([]);
+
+  useEffect(() => {
+    const storedRecentStudies =
+      JSON.parse(localStorage.getItem("recentStudies")) || [];
+    setRecentStudies(storedRecentStudies);
+  }, []);
 
   const filteredStudies = mockStudyData.filter((study) =>
     study.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  localStorage.removeItem("recentStudies"); //localstorage 의 데이터를 비우는 부분 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   const sortedStudies = [...filteredStudies].sort((a, b) => {
     if (sortOption === "recent") {
@@ -27,14 +36,32 @@ const StudyListPage = () => {
     setVisibleStudies((prev) => prev + 3);
   };
 
+  const handleStudyClick = (study) => {
+    // 클릭한 스터디를 최근 스터디 리스트에 추가
+    const updatedRecentStudies = [
+      study,
+      ...recentStudies.filter((s) => s.id !== study.id),
+    ].slice(0, 3);
+    setRecentStudies(updatedRecentStudies);
+    localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
+  };
+
   return (
     <div className="study-list-page">
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
-          {sortedStudies.slice(0, 3).map((study) => (
-            <StudyCard key={study.id} study={study} />
-          ))}
+          {recentStudies.length > 0 ? (
+            recentStudies.map((study) => (
+              <StudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleStudyClick(study)}
+              />
+            ))
+          ) : (
+            <p className="empty-studies-message">아직 조회한 스터디가 없어요</p>
+          )}
         </div>
       </section>
 
@@ -61,7 +88,11 @@ const StudyListPage = () => {
         </div>
         <div className="study-list">
           {sortedStudies.slice(0, visibleStudies).map((study) => (
-            <StudyCard key={study.id} study={study} />
+            <StudyCard
+              key={study.id}
+              study={study}
+              onClick={() => handleStudyClick(study)}
+            />
           ))}
         </div>
         {visibleStudies < sortedStudies.length && (
@@ -74,7 +105,7 @@ const StudyListPage = () => {
   );
 };
 
-const StudyCard = ({ study }) => {
+const StudyCard = ({ study, onClick }) => {
   const cardStyle = study.cardColor
     ? { backgroundColor: study.cardColor }
     : {
@@ -86,7 +117,11 @@ const StudyCard = ({ study }) => {
   const hasImageBackground = study.image ? "image-background" : "";
 
   return (
-    <div className={`study-card ${hasImageBackground}`} style={cardStyle}>
+    <div
+      className={`study-card ${hasImageBackground}`}
+      style={cardStyle}
+      onClick={onClick}
+    >
       <div className="study-card-frame">
         <div className="study-content">
           <h3>{study.title}</h3>
