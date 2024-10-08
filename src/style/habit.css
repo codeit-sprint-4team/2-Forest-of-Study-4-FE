@@ -3,7 +3,9 @@
 }
 
 body {
+  background-color: #f6f4ef;
   margin: 0;
+  padding: 0;
 }
 
 .habit {

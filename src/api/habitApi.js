@@ -42,6 +42,22 @@ export const updateHabitChecked = async (id, checked) => {
   }
 };
 
+// 습관 목록 업데이트 PUT
+export const updateHabits = async (updatedHabits) => {
+  try {
+    const response = await fetch(`${BASE_URL}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ habits: updatedHabits }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+  }
+};
+
 // 습관 삭제하기 DELETE
 export const deleteHabit = async (id) => {
   try {
