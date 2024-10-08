@@ -10,6 +10,22 @@ export const fetchHabits = async () => {
   }
 };
 
+// 습관 생성하기 POST
+export const createHabit = async (habitData) => {
+  try {
+    const response = await fetch(`${BASE_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(habitData), // 데이터가 올바르게 전달되는지 확인
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+  }
+};
+
 // 습관 상태 업데이트 PATCH
 export const updateHabitChecked = async (id, checked) => {
   try {
@@ -23,5 +39,16 @@ export const updateHabitChecked = async (id, checked) => {
     return await response.json();
   } catch (e) {
     console.log(`Error: ${e.message}`);
+  }
+};
+
+// 습관 삭제하기 DELETE
+export const deleteHabit = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
   }
 };

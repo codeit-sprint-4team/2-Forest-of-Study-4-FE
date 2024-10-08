@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { fetchHabits, updateHabitChecked } from "../api/habitApi";
+import { fetchHabits, createHabit, deleteHabit } from "../api/habitApi";
 import "../style/habitModal.css";
 
 export function HabitList() {
   const [habits, setHabits] = useState([]);
   const [habitItems, setHabitItems] = useState([]);
-  const [showInput, setShowInput] = useState(false); // 입력창 표시 여부
-  const [newHabit, setNewHabit] = useState(""); // 새로운 항목 입력값 관리
+  const [showInput, setShowInput] = useState(false);
+  const [newHabit, setNewHabit] = useState("");
 
   // 백엔드에서 습관 데이터 가져오기
   useEffect(() => {
@@ -29,12 +29,20 @@ export function HabitList() {
   };
 
   // 엔터키로 저장
-  const handleKeyPress = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter" && newHabit.trim() !== "") {
-      setHabitItems([...habitItems, { habitName: newHabit }]);
+      const newHabitData = { habitName: newHabit };
+      const createdHabit = await createHabit(newHabitData);
+      setHabits([...habits, createdHabit]);
       setNewHabit("");
       setShowInput(false);
     }
+  };
+
+  // 습관 삭제 함수
+  const handleDeleteHabit = async (id) => {
+    await deleteHabit(id);
+    setHabits(habits.filter((habits) => habits.id !== id));
   };
 
   return (
@@ -45,7 +53,11 @@ export function HabitList() {
             <div className={`habitItem ${habit.checked ? "checked" : ""}`}>
               {habit.habitName}
             </div>
-            <button className="deleteIcon">
+            <button
+              className="deleteIcon"
+              onClick={() => handleDeleteHabit(habit.id)}
+              key={habit.id}
+            >
               <img
                 className="deleteIconImg"
                 src="/imgs/deleteIcon.png"
@@ -60,7 +72,7 @@ export function HabitList() {
               type="text"
               value={newHabit}
               onChange={handleInputChange}
-              onKeyDown={handleKeyPress}
+              onKeyDown={handleKeyDown}
               placeholder=""
               className="habitInput"
             />
