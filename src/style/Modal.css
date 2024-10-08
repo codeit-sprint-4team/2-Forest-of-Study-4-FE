@@ -15,6 +15,7 @@
 
 .modalBox {
   width: 648px;
+  max-height: 861px;
   background-color: white;
   border-radius: 20px;
   padding: 0 16px;
@@ -78,6 +79,7 @@
 @media (max-width: 743px) {
   .modalBox {
     width: 376px;
+    max-height: 741px;
   }
   .modalClose {
     width: 140px;

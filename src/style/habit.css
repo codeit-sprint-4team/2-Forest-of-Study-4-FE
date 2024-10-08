@@ -89,11 +89,6 @@ body {
   height: 100%;
 }
 
-/* Chrome, Safari에서 스크롤바 숨기기 */
-.habitList::-webkit-scrollbar {
-  display: none;
-}
-
 .noneHabitList {
   font-weight: 500;
   font-size: 20px;
@@ -122,6 +117,20 @@ body {
   background-color: #99c08e;
 }
 
+.habitModalContent {
+  max-height: 620px;
+  overflow-y: auto;
+}
+
+/* Chrome, Safari에서 스크롤바 숨기기 */
+.habitList::-webkit-scrollbar {
+  display: none;
+}
+
+.habitModalContent::-webkit-scrollbar {
+  display: none;
+}
+
 /* 반응형 CSS */
 @media (max-width: 1199px) and (min-width: 744px) {
   .habit {
@@ -147,5 +156,8 @@ body {
   .habitItem {
     width: 280px;
     height: 54px;
+  }
+  .habitModalContent {
+    max-height: 488px;
   }
 }

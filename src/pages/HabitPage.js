@@ -107,7 +107,11 @@ function HabitPage() {
         {modalOpen && (
           <Modal
             title="목록 수정"
-            modalContent={<HabitList />}
+            modalContent={
+              <div className="habitModalContent">
+                <HabitList />
+              </div>
+            }
             exitText="취소"
             buttonText="수정 완료"
             handleButtonClick={toggleModal}
