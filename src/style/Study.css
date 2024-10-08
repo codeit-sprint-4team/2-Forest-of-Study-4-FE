@@ -1,9 +1,8 @@
-/* src/style/Study.css */
-.study-page {
+src/style/Study.css .study-page {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
-
+/*
 .study-list {
   margin-top: 20px;
 }
@@ -29,21 +28,21 @@
   font-size: 16px; 
 }
 
-/* 수정하기 */
+/* 수정하기 
 .edit-button {
   background-color: #578246;
   color: white;
   font-size: 16px
 }
 
-/* 삭제하기 버튼 */
+/* 삭제하기 버튼 
 .delete-button {
   background-color: #818181;
   color: white;
   font-size: 16px
-}
+} */
 
-.modal {
+/* .modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -85,4 +84,4 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+} */

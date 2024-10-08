@@ -93,7 +93,7 @@ export const mockStudyData = [
     thumbsUp: 11,
     comments: 9,
     status: "진행 중",
-    cardColor: "#FFF1CC",
+    cardColor: "#E1EDDE",
     image: "",
   },
   {
