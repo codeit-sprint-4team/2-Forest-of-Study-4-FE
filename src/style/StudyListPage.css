@@ -1,0 +1,234 @@
+/* 공통 */
+* {
+  box-sizing: border-box;
+  font-family: pretendard;
+}
+
+body {
+  background-color: #f6f4ef;
+  margin: 0;
+  padding: 0;
+}
+
+/* GNB 관련 스타일 */
+.globalForest {
+  background-color: #f6f4ef;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 220px;
+}
+
+.globalForestIcon {
+  width: 181px;
+  height: 60px;
+}
+
+.createStudyButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 스터디 리스트 페이지 */
+.study-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f6f4ef;
+}
+
+.frame {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.browse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-sort {
+  display: flex;
+  align-items: center;
+}
+
+.search-sort input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.search-sort select {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.study-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.study-card {
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  width: 358px;
+  height: 243px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.recent-studies {
+  width: 1200px;
+  height: 382px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.recent-studies-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.empty-studies-message {
+  font-size: 20px;
+  font-weight: 500;
+  color: #818181;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.study-card-inner {
+  width: 298px;
+  height: 183px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.study-content {
+  color: black;
+}
+
+.image-background .study-content {
+  color: white;
+}
+
+.load-more {
+  width: 280px;
+  height: 53px;
+  background-color: #ffffff;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.load-more:hover {
+  background-color: #f0f0f0;
+  border: 1px solid #4caf50;
+}
+
+.study-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 반응형 CSS */
+@media (min-width: 1200px) {
+  .study-list {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 744px) {
+  .study-list-page {
+    padding-top: 50px;
+  }
+  .study-list {
+    gap: 20px;
+    justify-content: center;
+  }
+  .study-card {
+    width: 300px;
+    height: 200px;
+  }
+
+  .globalForest {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 743px) {
+  .study-list-page {
+    padding-top: 20px;
+  }
+  .study-list {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .study-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+  .study-card-inner {
+    width: 100%;
+    height: auto;
+  }
+  .load-more {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .globalForest {
+    padding: 32px 16px;
+  }
+
+  .globalForestIcon {
+    width: 106px;
+    height: 35px;
+  }
+}
