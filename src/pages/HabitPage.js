@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
-import Modal from "../components/commons/modal/Modal";
-import { HabitList } from "../components/HabitList";
 import "../style/habit.css";
 import { fetchHabits, updateHabitChecked, updateHabits } from "../api/habitApi";
 import HabitModal from "../components/commons/modal/HabitModal";
@@ -51,7 +49,6 @@ function HabitPage() {
           updatedAt: convertedUpdatedAt,
         };
       });
-
       // 변환된 데이터를 setHabits에 저장
       setHabits(convertedData);
     };
@@ -66,12 +63,12 @@ function HabitPage() {
 
   // checked 상태 변경
   const handleHabitClick = async (id, checked) => {
-    const updatedHabit = await updateHabitChecked(id, !checked);
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
-        habit.id === id ? { ...habit, checked: updatedHabit.checked } : habit
+        habit.id === id ? { ...habit, checked: !habit.checked } : habit
       )
     );
+    await updateHabitChecked(id, !checked);
   };
 
   return (

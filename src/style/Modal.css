@@ -63,6 +63,7 @@
   font-weight: 400;
   font-size: 18px;
   color: #818181;
+  white-space: nowrap;
 }
 
 .movePage {

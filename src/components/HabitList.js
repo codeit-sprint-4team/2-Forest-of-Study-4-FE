@@ -56,7 +56,9 @@ export function HabitList({ habits, setHabits, onClose }) {
       await deleteHabit(habit.id);
     }
 
-    setHabits(templateHabits);
+    const newData = await fetchHabits();
+
+    setHabits(newData);
     onClose();
   };
 
@@ -65,47 +67,49 @@ export function HabitList({ habits, setHabits, onClose }) {
   };
 
   return (
-    <div className="habitModal">
-      <div className="habitItemContainer">
-        {templateHabits.map((habit) => (
-          <div className="rowHabit" key={habit.id}>
-            <div className={`habitItem ${habit.checked ? "checked" : ""}`}>
-              {habit.habitName}
+    <div>
+      <div className="habitModal">
+        <div className="habitModalItems">
+          {templateHabits.map((habit) => (
+            <div className="rowHabit" key={habit.id}>
+              <div className={`habitItem ${habit.checked ? "checked" : ""}`}>
+                {habit.habitName}
+              </div>
+              <button
+                className="deleteIcon"
+                onClick={() => handleDeleteHabit(habit.id)}
+              >
+                <img
+                  className="deleteIconImg"
+                  src="/imgs/deleteIcon.png"
+                  alt="deleteIcon"
+                />
+              </button>
             </div>
-            <button
-              className="deleteIcon"
-              onClick={() => handleDeleteHabit(habit.id)}
-            >
-              <img
-                className="deleteIconImg"
-                src="/imgs/deleteIcon.png"
-                alt="deleteIcon"
+          ))}
+          {showInput && (
+            <div className="habitInputContainer">
+              <input
+                type="text"
+                value={newHabit}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder=""
+                className="habitInput"
               />
-            </button>
-          </div>
-        ))}
-        {showInput && (
-          <div className="habitInputContainer">
-            <input
-              type="text"
-              value={newHabit}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder=""
-              className="habitInput"
-            />
-            <button className="deleteIcon">
-              <img
-                className="deleteIconImg"
-                src="/imgs/deleteIcon.png"
-                alt="deleteIcon"
-              />
-            </button>
-          </div>
-        )}
-        <button className="addHabitButton" onClick={handleAddHabitClick}>
-          <span className="plus">+</span>
-        </button>
+              <button className="deleteIcon">
+                <img
+                  className="deleteIconImg"
+                  src="/imgs/deleteIcon.png"
+                  alt="deleteIcon"
+                />
+              </button>
+            </div>
+          )}
+          <button className="addHabitButton" onClick={handleAddHabitClick}>
+            <span className="plus">+</span>
+          </button>
+        </div>
         <div className="modalButton">
           <button className="modalClose" onClick={onClose}>
             취소
