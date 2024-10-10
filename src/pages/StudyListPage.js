@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../style/StudyListPage.css";
-import "../style/Gnb.css";
+import Gnb from "../components/commons/gnb/Gnb"; // gnb
 import { mockStudyData } from "../mock";
-import { Link } from "react-router-dom";
 
-const GNB = () => {
-  return (
-    <div className="globalForest">
-      <img
-        src="/imgs/globalForest.png"
-        alt="Global Forest"
-        className="globalForestIcon"
-      />
-      <Link to="/createStudy" className="createStudyButton">
-        <img src="/imgs/createStudyIcon3.png" alt="스터디 만들기 아이콘" />
-      </Link>
-    </div>
-  );
-};
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
@@ -61,8 +46,7 @@ const StudyListPage = () => {
 
   return (
     <div className="study-list-page">
-      <GNB />
-
+      <Gnb />
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
@@ -79,7 +63,6 @@ const StudyListPage = () => {
           )}
         </div>
       </section>
-
       <section className="frame browse-studies">
         <div className="browse-header">
           <h2>스터디 둘러보기</h2>
