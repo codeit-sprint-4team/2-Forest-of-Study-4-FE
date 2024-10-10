@@ -1,4 +1,3 @@
-/* 공통 */
 * {
   box-sizing: border-box;
   font-family: pretendard;
@@ -10,30 +9,6 @@ body {
   padding: 0;
 }
 
-/* GNB 관련 스타일 */
-.globalForest {
-  background-color: #f6f4ef;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 220px;
-}
-
-.globalForestIcon {
-  width: 181px;
-  height: 60px;
-}
-
-.createStudyButton {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-/* 스터디 리스트 페이지 */
 .study-list-page {
   display: flex;
   flex-direction: column;
@@ -195,10 +170,6 @@ body {
     width: 300px;
     height: 200px;
   }
-
-  .globalForest {
-    padding: 20px 24px;
-  }
 }
 
 @media (max-width: 743px) {
@@ -221,14 +192,5 @@ body {
   .load-more {
     width: 100%;
     max-width: 400px;
-  }
-
-  .globalForest {
-    padding: 32px 16px;
-  }
-
-  .globalForestIcon {
-    width: 106px;
-    height: 35px;
   }
 }
