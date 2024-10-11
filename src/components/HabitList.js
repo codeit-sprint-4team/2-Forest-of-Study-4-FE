@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   fetchHabits,
   createHabit,
   deleteHabit,
-  updateHabits,
+  // updateHabits,
 } from "../api/habitApi";
 import "../style/Modal.css";
 import "../style/habitModal.css";
@@ -13,6 +14,11 @@ export function HabitList({ habits, setHabits, onClose }) {
   const [newHabit, setNewHabit] = useState("");
   const [templateHabits, setTemplateHabits] = useState(habits);
   const [originalHabits] = useState(habits);
+
+  // URL에서 studyId 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const studyId = searchParams.get("studyId");
 
   // 입력창 보이기
   const handleAddHabitClick = () => {
@@ -46,17 +52,17 @@ export function HabitList({ habits, setHabits, onClose }) {
       (habit) => !originalHabits.some((oHabit) => oHabit.id === habit.id)
     );
     for (let habit of addedHabits) {
-      await createHabit({ habitName: habit.habitName });
+      await createHabit(habit.habitName, studyId);
     }
 
     const deletedHabits = originalHabits.filter(
       (habit) => !templateHabits.some((tHabit) => tHabit.id === habit.id)
     );
     for (let habit of deletedHabits) {
-      await deleteHabit(habit.id);
+      await deleteHabit(habit.id, studyId);
     }
 
-    const newData = await fetchHabits();
+    const newData = await fetchHabits(studyId);
 
     setHabits(newData);
     onClose();

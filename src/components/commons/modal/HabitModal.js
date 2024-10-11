@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "../../../style/Modal.css";
 import "../../../style/habit.css";
 import "../../../style/habitModal.css";
@@ -10,6 +11,11 @@ export default function HabitModal({
   habits,
   setHabits,
 }) {
+  // URL에서 studyId 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const studyId = searchParams.get("studyId");
+
   return (
     <div className="CommonModal">
       <div className="modalBox">

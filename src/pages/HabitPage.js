@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
 import "../style/habit.css";
@@ -9,6 +10,11 @@ function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [habits, setHabits] = useState([]);
+
+  // URL에서 studyId 가져오기
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const studyId = searchParams.get("studyId");
 
   // 현재 시간 표시
   useEffect(() => {
@@ -32,7 +38,7 @@ function HabitPage() {
   // 백엔드에서 습관 데이터 가져오기
   useEffect(() => {
     const loadHabits = async () => {
-      const data = await fetchHabits();
+      const data = await fetchHabits(studyId);
 
       // habit의 createdAt과 updatedAt을 한국 시간으로 변환
       const convertedData = data.map((habit) => {
@@ -68,7 +74,7 @@ function HabitPage() {
         habit.id === id ? { ...habit, checked: !habit.checked } : habit
       )
     );
-    await updateHabitChecked(id, !checked);
+    await updateHabitChecked(id, !checked, studyId);
   };
 
   return (
