@@ -14,7 +14,6 @@ export default function HabitModal({
     <div className="CommonModal">
       <div className="modalBox">
         <h2 className="modalTitle">{title}</h2>
-        {/* <div className="modalContent">{modalContent}</div> */}
         <div className="modalContent">
           <div>
             <HabitList

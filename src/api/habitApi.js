@@ -18,7 +18,7 @@ export const createHabit = async (habitData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(habitData), // 데이터가 올바르게 전달되는지 확인
+      body: JSON.stringify(habitData),
     });
     return await response.json();
   } catch (error) {
