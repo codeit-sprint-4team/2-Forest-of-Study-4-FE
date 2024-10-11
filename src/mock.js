@@ -181,3 +181,14 @@ export const habitData = [
     updatedAt: "2024-10-01T08:00:00Z",
   },
 ];
+
+export const backgrounds = [
+  { id: 1, type: "color", value: "#E1EDDE" },
+  { id: 2, type: "color", value: "#FFF1CC" },
+  { id: 3, type: "color", value: "#E0F1F5" },
+  { id: 4, type: "color", value: "#FDE0E9" },
+  { id: 5, type: "image", value: "/imgs/study1.png" },
+  { id: 6, type: "image", value: "/imgs/study2.png" },
+  { id: 7, type: "image", value: "/imgs/study3.png" },
+  { id: 8, type: "image", value: "/imgs/study4.png" },
+];
