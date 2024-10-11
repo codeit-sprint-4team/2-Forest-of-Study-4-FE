@@ -1,18 +1,16 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
-import Modal from "../components/commons/modal/Modal";
-import { HabitList } from "../components/HabitList";
 import "../style/habit.css";
-// import { habitData } from "../mock";
-import { fetchHabits, updateHabitChecked } from "../api/habitApi";
+import { fetchHabits, updateHabitChecked, updateHabits } from "../api/habitApi";
+import HabitModal from "../components/commons/modal/HabitModal";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [habits, setHabits] = useState([]);
 
-  //현재 시간 표시
+  // 현재 시간 표시
   useEffect(() => {
     const updateTime = () => {
       const todayTime = new Date();
@@ -35,25 +33,42 @@ function HabitPage() {
   useEffect(() => {
     const loadHabits = async () => {
       const data = await fetchHabits();
-      setHabits(data);
+
+      // habit의 createdAt과 updatedAt을 한국 시간으로 변환
+      const convertedData = data.map((habit) => {
+        const convertedCreatedAt = new Date(
+          new Date(habit.createdAt).getTime() + 9 * 60 * 60 * 1000
+        ).toISOString();
+        const convertedUpdatedAt = new Date(
+          new Date(habit.updatedAt).getTime() + 9 * 60 * 60 * 1000
+        ).toISOString();
+
+        return {
+          ...habit,
+          createdAt: convertedCreatedAt,
+          updatedAt: convertedUpdatedAt,
+        };
+      });
+      // 변환된 데이터를 setHabits에 저장
+      setHabits(convertedData);
     };
 
     loadHabits();
   }, []);
 
-  //예시 모달
+  // 모달 열기/닫기
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
 
-  //checked
+  // checked 상태 변경
   const handleHabitClick = async (id, checked) => {
-    const updatedHabit = await updateHabitChecked(id, !checked);
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
-        habit.id === id ? { ...habit, checked: updatedHabit.checked } : habit
+        habit.id === id ? { ...habit, checked: !habit.checked } : habit
       )
     );
+    await updateHabitChecked(id, !checked);
   };
 
   return (
@@ -105,12 +120,12 @@ function HabitPage() {
           </div>
         </div>
         {modalOpen && (
-          <Modal
+          <HabitModal
             title="목록 수정"
-            modalContent={<HabitList />}
-            exitText="취소"
-            buttonText="수정 완료"
-            handleButtonClick={toggleModal}
+            handleCloseClick={() => setModalOpen(!modalOpen)}
+            handleCloseModal={toggleModal}
+            habits={habits}
+            setHabits={setHabits}
           />
         )}
       </div>

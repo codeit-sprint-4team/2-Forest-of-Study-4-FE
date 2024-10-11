@@ -9,6 +9,7 @@ function Modal({
   modalContent,
   exitText,
   buttonText,
+  handleCloseClick,
   handleButtonClick,
 }) {
   const location = useLocation();
@@ -19,7 +20,7 @@ function Modal({
         <h2 className="modalTitle">{title}</h2>
         <div className="modalContent">{modalContent}</div>
         <div className="modalButton">
-          <button className="modalClose" onClick={handleButtonClick}>
+          <button className="modalClose" onClick={handleCloseClick}>
             {exitText}
           </button>
           <button className="submitButton" onClick={handleButtonClick}>
