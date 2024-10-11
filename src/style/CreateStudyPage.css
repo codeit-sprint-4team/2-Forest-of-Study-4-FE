@@ -1,0 +1,135 @@
+.create-study-page {
+  width: 696px;
+  height: 1171px;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-study-page h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.study-form {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.study-form label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 3px;
+  color: #414141;
+}
+
+.study-form input,
+.study-form textarea,
+.password-wrapper input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.study-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.background-options {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.background-item {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.background-item:hover {
+  border-color: #99c08e;
+}
+
+.background-item.selected {
+  border-color: #99c08e;
+}
+
+.background-item img.selected-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #99c08e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #88b07d;
+}
+
+.submit-button:disabled {
+  background-color: #818181;
+  cursor: not-allowed;
+  color: #ffffff;
+}
+
+.error-label {
+  color: red;
+}
+
+.study-form input.error-input {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: -20px;
+  margin-bottom: 15px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+.visibility-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-80%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
