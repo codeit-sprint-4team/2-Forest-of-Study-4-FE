@@ -3,23 +3,23 @@ import EmojiPicker from 'emoji-picker-react';
 import '../../style/Emoji.css'
 
 const Emoji = () => {
-  const [isEmojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [EmojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [emojiList, setEmojiList] = useState([]);
 
   const handleEmojiClick = (event, emojiObject) => {
     const selectedEmoji = emojiObject.emoji;
     setText(prevText => prevText + selectedEmoji);
     setEmojiPickerVisible(false);
-    saveEmojiToServer(selectedEmoji);
+    saveEmoji(selectedEmoji);
   };
 
   const toggleEmojiPicker = () => {
     setEmojiPickerVisible(prevState => !prevState);
   };
 
-  const saveEmojiToServer = async (emoji) => {
+  const saveEmoji = async (emoji) => {
     try {
-      const response = await fetch('http://your-server-url.com/api/emojis', {
+      const response = await fetch('주소주소', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,15 +33,15 @@ const Emoji = () => {
 
       const result = await response.json();
       console.log('Emoji saved:', result);
-      fetchEmojisFromServer();
+      getEmoji();
     } catch (error) {
       console.error('Error saving emoji:', error);
     }
   };
 
-  const fetchEmojisFromServer = async () => {
+  const getEmoji = async () => {
     try {
-      const response = await fetch('http://your-server-url.com/api/emojis');
+      const response = await fetch('주소주소');
       if (!response.ok) {
         throw new Error('Failed to fetch emojis');
       }
@@ -67,7 +67,7 @@ const Emoji = () => {
   };
 
   useEffect(() => {
-    fetchEmojisFromServer();
+    getEmoji();
   }, []);
 
   return (
@@ -82,7 +82,7 @@ const Emoji = () => {
       <button onClick={toggleEmojiPicker}>
         추가
       </button>
-      {isEmojiPickerVisible && (
+      {EmojiPickerVisible && (
         <div style={{ position: 'absolute', zIndex: 1 }}>
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         </div>
