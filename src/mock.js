@@ -1,7 +1,6 @@
-// 테스트용 mock 데이터 파일입니다.
 export const mockStudyData = [
   {
-    id: 1,
+    id: "a1ee1e76-ea9w-423f-4ccf-8d9b4fbf331e",
     title: "이유디의 UX 스터디",
     description: "Slow And Steady Wins The Race!!",
     points: 310,
@@ -37,7 +36,7 @@ export const mockStudyData = [
     image: "",
   },
   {
-    id: 4,
+    id: "b2ff2g77-bb5w-567u-7ccv-9d8g6fbf332g",
     title: "이유디의 UX 스터디",
     description: "Slow And Steady Wins The Race!!",
     points: 310,
@@ -110,6 +109,17 @@ export const mockStudyData = [
   },
 ];
 
+export const backgrounds = [
+  { id: 1, type: "color", value: "#E1EDDE" },
+  { id: 2, type: "color", value: "#FFF1CC" },
+  { id: 3, type: "color", value: "#E0F1F5" },
+  { id: 4, type: "color", value: "#FDE0E9" },
+  { id: 5, type: "image", value: "/imgs/study1.png" },
+  { id: 6, type: "image", value: "/imgs/study2.png" },
+  { id: 7, type: "image", value: "/imgs/study3.png" },
+  { id: 8, type: "image", value: "/imgs/study4.png" },
+];
+
 export const habitData = [
   {
     id: 1,
@@ -180,15 +190,4 @@ export const habitData = [
     createdAt: "2024-10-01T08:00:00Z",
     updatedAt: "2024-10-01T08:00:00Z",
   },
-];
-
-export const backgrounds = [
-  { id: 1, type: "color", value: "#E1EDDE" },
-  { id: 2, type: "color", value: "#FFF1CC" },
-  { id: 3, type: "color", value: "#E0F1F5" },
-  { id: 4, type: "color", value: "#FDE0E9" },
-  { id: 5, type: "image", value: "/imgs/study1.png" },
-  { id: 6, type: "image", value: "/imgs/study2.png" },
-  { id: 7, type: "image", value: "/imgs/study3.png" },
-  { id: 8, type: "image", value: "/imgs/study4.png" },
 ];

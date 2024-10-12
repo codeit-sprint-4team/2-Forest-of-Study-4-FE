@@ -13,7 +13,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/createStudy" element={<CreateStudyPage />} />
-        <Route path="/habit" element={<HabitPage />} />
+        <Route path="/habits" element={<HabitPage />} />
         <Route path="/study-check" element={<StudyPage />} />
         <Route path="/habits" element={<HabitPage />} />
         <Route path="/test" element={<TestPage />} />

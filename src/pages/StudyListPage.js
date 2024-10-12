@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../style/StudyListPage.css";
 import Gnb from "../components/commons/gnb/Gnb"; // gnb
 import { mockStudyData } from "../mock";
@@ -52,11 +53,13 @@ const StudyListPage = () => {
         <div className="study-list">
           {recentStudies.length > 0 ? (
             recentStudies.map((study) => (
-              <StudyCard
-                key={study.id}
-                study={study}
-                onClick={() => handleStudyClick(study)}
-              />
+              <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
+                <StudyCard
+                  key={study.id}
+                  study={study}
+                  onClick={() => handleStudyClick(study)}
+                />
+              </Link>
             ))
           ) : (
             <p className="empty-studies-message">아직 조회한 스터디가 없어요</p>
@@ -86,11 +89,13 @@ const StudyListPage = () => {
         </div>
         <div className="study-list">
           {sortedStudies.slice(0, visibleStudies).map((study) => (
-            <StudyCard
-              key={study.id}
-              study={study}
-              onClick={() => handleStudyClick(study)}
-            />
+            <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
+              <StudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleStudyClick(study)}
+              />
+            </Link>
           ))}
         </div>
         {visibleStudies < sortedStudies.length && (
