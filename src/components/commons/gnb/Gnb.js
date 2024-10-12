@@ -12,12 +12,17 @@ export default function Gnb() {
     navigate("/createStudy");
   };
 
+  const handleImgClick = () => {
+    navigate("/");
+  };
+
   return (
     <div className="globalForest">
       <img
         className="globalForestIcon"
         src="/imgs/globalForest.png"
         alt="동물의 숲"
+        onClick={handleImgClick}
       />
       {showStudyButtonPaths.includes(location.pathname) && (
         <button className="createStudyButton" onClick={handleButtonClick}>
