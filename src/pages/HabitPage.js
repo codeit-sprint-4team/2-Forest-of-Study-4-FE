@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
@@ -10,6 +10,11 @@ function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [habits, setHabits] = useState([]);
+  const habitsRef = useRef(habits);
+
+  useEffect(() => {
+    habitsRef.current = habits;
+  }, [habits]);
 
   // URL에서 studyId 가져오기
   const location = useLocation();
@@ -76,6 +81,35 @@ function HabitPage() {
     );
     await updateHabitChecked(id, !checked, studyId);
   };
+
+  // 자정에 checked 상태 false로 변경
+  function scheduleHabitResetAtMidnight() {
+    const now = new Date();
+    const nextMidnight = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1,
+      0,
+      0,
+      0
+    );
+    // const timeUntilMidnight = 10 * 1000; // 10초 후 테스트용
+    const timeUntilMidnight = nextMidnight - now; // 실제 자정 기준
+    setTimeout(async () => {
+      const updatedHabits = habits.map((habit) => ({
+        ...habit,
+        checked: false,
+      }));
+      setHabits(updatedHabits);
+      for (const habit of updatedHabits) {
+        await updateHabitChecked(habit.id, false, habit.studyId);
+      }
+      scheduleHabitResetAtMidnight();
+    }, timeUntilMidnight);
+  }
+  useEffect(() => {
+    scheduleHabitResetAtMidnight();
+  }, []);
 
   return (
     <>
