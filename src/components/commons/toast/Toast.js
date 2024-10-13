@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Toast.css";
+import "../../../style/Toast.css";
 
 const Toast = ({ toastContent, type }) => {
   const getIcon = () => {

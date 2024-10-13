@@ -1,3 +1,14 @@
+
+.toast {
+  position: absolute;
+  bottom: 30px;  /*화면 하단에서 떨어진 위치 */
+  left: 50%; /* 화면의 50% 위치에 배치됨 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+  z-index: 10; 
+}
+
+
+/* 그전코드
 .toast {
   display: flex;
   align-items: center;
@@ -8,7 +19,7 @@
   margin: 10px 0;
   max-width: 300px;
   opacity: 0.95;
-}
+} */
 
 /* 성공 토스트 */
 .toast-success {

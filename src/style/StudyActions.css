@@ -1,0 +1,52 @@
+.study-actions {
+  display: flex; /* 가로 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+  gap: 16px; /* 버튼 사이 간격 */
+  width: 289px; /* 전체 너비 */
+  height: 19px; /* 전체 높이 */
+  position: absolute; /* 부모 기준으로 위치 지정 */
+  top: 6px; /* 상단에서 6px 위치 */
+  left: 831px; /* 왼쪽에서 831px 위치 */
+}
+
+/* 구분선 스타일 */
+.divider {
+  width: 6px; /* 구분선 너비 */
+  height: 19px; /* 구분선 높이 */
+  background-color: #818181; /* 구분선 색상 */
+  opacity: 1; /* 구분선 표시 */
+}
+
+/* 버튼에 적용될 기본 스타일 */
+.action-button {
+  font-family: Pretendard; /* 폰트 설정 */
+  font-size: 16px; /* 글자 크기 */
+  font-weight: 500; /* 글자 굵기 */
+  line-height: 19.09px; /* 행 간격 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 커서 모양 */
+  opacity: 1; /* 버튼 표시 */
+  color: white; /* 기본 텍스트 색상 */
+}
+
+/* 공유하기 버튼 */
+.share-button {
+  width: 56px; 
+  height: 19px; 
+  background-color: #578246; 
+}
+
+/* 수정하기 버튼 */
+.edit-button {
+  width: 56px; 
+  height: 19px; 
+  background-color: #578246;
+}
+
+/* 삭제하기 버튼 */
+.delete-button {
+  width: 101px; 
+  height: 19px; 
+  background-color: #818181; 
+}
