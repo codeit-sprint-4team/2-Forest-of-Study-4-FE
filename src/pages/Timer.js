@@ -7,7 +7,7 @@ const Timer = () => {
   const defaultTime = 1500; // 기본값 25분 (1500초)
   const [timeLeft, setTimeLeft] = useState(defaultTime);
   const [isRunning, setIsRunning] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); 
   const [inputTime, setInputTime] = useState("25:00");
   const [timerStarted, setTimerStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -103,7 +103,9 @@ const Timer = () => {
       <Gnb /> {/* GNB를 상단에 추가 */}
       <div className="timer-wrapper">
         <div className="timer-container">
-          <Header title="title" buttonTitle1="오늘의 습관" buttonTitle2="홈" buttonTo1="/habits" buttonTo2="/" />
+          <div className="header-wrapper">
+            <Header title="연우의 개발공장" buttonTitle1="오늘의 습관" buttonTitle2="홈" buttonTo1="/habits" buttonTo2="/" />
+          </div>
           <div className="timer-content">
             {isEditing ? (
               <input
@@ -162,4 +164,3 @@ const Timer = () => {
 };
 
 export default Timer;
-
