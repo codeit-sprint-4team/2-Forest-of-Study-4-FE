@@ -21,6 +21,7 @@ body {
 .globalForestIcon {
   width: 181px;
   height: 60px;
+  cursor: pointer;
 }
 
 .createStudyButton {
