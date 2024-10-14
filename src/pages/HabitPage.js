@@ -10,6 +10,7 @@ function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [habits, setHabits] = useState([]);
+  const [loading, setLoading] = useState(true);
   const habitsRef = useRef(habits);
 
   useEffect(() => {
@@ -43,7 +44,14 @@ function HabitPage() {
   // 백엔드에서 습관 데이터 가져오기
   useEffect(() => {
     const loadHabits = async () => {
+      setLoading(true);
       const data = await fetchHabits(studyId);
+
+      if (!data || !Array.isArray(data)) {
+        setHabits([]); // 데이터가 없으면 빈 배열 설정
+        setLoading(false);
+        return;
+      }
 
       // habit의 createdAt과 updatedAt을 한국 시간으로 변환
       const convertedData = data.map((habit) => {
@@ -62,6 +70,7 @@ function HabitPage() {
       });
       // 변환된 데이터를 setHabits에 저장
       setHabits(convertedData);
+      setLoading(false);
     };
 
     loadHabits();
@@ -135,7 +144,9 @@ function HabitPage() {
               </div>
             </div>
             <div className="habitList">
-              {habits.length === 0 ? (
+              {loading ? (
+                <div className="loading">로딩 중...</div> // 로딩 중일 때 표시
+              ) : habits.length === 0 ? (
                 <div className="noneHabitList">
                   <p>
                     아직 습관이 없어요
