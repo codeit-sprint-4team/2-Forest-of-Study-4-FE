@@ -82,7 +82,7 @@ const Emoji = () => {
     <div>
       <div>
         {emojiList.map(({ emoji, count }) => (
-          <button key={emoji} onClick={() => handleEmojiClick(null, { emoji })}>
+          <button className='emojiButton' key={emoji} onClick={() => handleEmojiClick(null, { emoji })}>
             {emoji} {count}
           </button>
         ))}
