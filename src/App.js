@@ -13,7 +13,6 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="timer" element={<Timer />} />
         <Route path="/createStudy" element={<CreateStudyPage />} />
         <Route path="/habits" element={<HabitPage />} />
         <Route path="/study-check" element={<StudyPage />} />
