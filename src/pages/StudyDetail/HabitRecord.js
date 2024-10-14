@@ -12,7 +12,7 @@ const HabitTable = () => {
   useEffect(() => {
     const fetchHabits = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/habits?studyId=123');
+        const response = await fetch('https://two-forest-of-study-4-be.onrender.com/');
         const data = await response.json();
         setHabits(data);
       } catch (error) {
@@ -22,7 +22,7 @@ const HabitTable = () => {
 
     const fetchCompletedHabits = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/completed-habits?studyId=123');
+        const response = await fetch('https://two-forest-of-study-4-be.onrender.com/');
         const data = await response.json();
         setCompletedHabits(data);
       } catch (error) {
