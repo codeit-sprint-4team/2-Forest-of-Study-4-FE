@@ -20,7 +20,6 @@ const StudyListPage = () => {
         console.error("스터디 목록 조회 실패:", error);
       }
     };
-
     fetchStudiesData();
   }, []);
 
@@ -34,19 +33,20 @@ const StudyListPage = () => {
     study.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const sortedStudies = [...filteredStudies].sort((a, b) => {
+  const sortedStudies = filteredStudies.sort((a, b) => {
     if (sortOption === "recent") {
       return new Date(b.createdAt) - new Date(a.createdAt);
     } else if (sortOption === "oldest") {
       return new Date(a.createdAt) - new Date(b.createdAt);
-    } else {
-      return 0;
+    } else if (sortOption === "highPoints") {
+      return b.points - a.points;
+    } else if (sortOption === "lowPoints") {
+      return a.points - b.points;
     }
+    return 0;
   });
 
-  const loadMore = () => {
-    setVisibleStudies((prev) => prev + 3);
-  };
+  const loadMore = () => setVisibleStudies((prev) => prev + 3);
 
   const handleStudyClick = (study) => {
     const updatedRecentStudies = [
@@ -63,11 +63,10 @@ const StudyListPage = () => {
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
-          {recentStudies.length > 0 ? (
+          {recentStudies.length ? (
             recentStudies.map((study) => (
               <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
                 <StudyCard
-                  key={study.id}
                   study={study}
                   onClick={() => handleStudyClick(study)}
                 />
@@ -94,6 +93,8 @@ const StudyListPage = () => {
             >
               <option value="recent">최근 순</option>
               <option value="oldest">오래된 순</option>
+              <option value="highPoints">많은 포인트 순</option>
+              <option value="lowPoints">적은 포인트 순</option>
             </select>
           </div>
         </div>
@@ -101,7 +102,6 @@ const StudyListPage = () => {
           {sortedStudies.slice(0, visibleStudies).map((study) => (
             <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
               <StudyCard
-                key={study.id}
                 study={study}
                 onClick={() => handleStudyClick(study)}
               />
@@ -129,16 +129,52 @@ const StudyCard = ({ study, onClick }) => {
         backgroundPosition: "center",
       };
 
+  const nicknameStyle = isColor
+    ? { color: getNicknameColor(study.background) }
+    : { color: "white" };
+
+  const progressStyle = isColor ? { color: "#414141" } : { color: "white" };
+
   return (
-    <div className="study-card" style={cardStyle} onClick={onClick}>
+    <div
+      className={isColor ? "study-card" : "study-card image-background"}
+      style={cardStyle}
+      onClick={onClick}
+    >
       <div className="study-card-frame">
-        <div className="study-content">
-          <h3>{`${study.nickname}의 ${study.name}`}</h3>
-          <p>{study.description}</p>
+        <div className="study-card-header">
+          <h3>
+            <span style={nicknameStyle} className="nickname">
+              {study.nickname}
+            </span>
+            의 {study.name}
+          </h3>
+          <span className="study-progress" style={progressStyle}>
+            {study.progressDays}일째 진행 중
+          </span>
+        </div>
+        <p className="study-description">{study.description}</p>
+        <div className="study-card-footer">
+          <div className="study-icons">
+            <span>🙋‍♂️ {study.participants}</span>
+            <span>🔥 {study.activities}</span>
+            <span>❤️ {study.likes}</span>
+          </div>
+          <div className="study-points">{study.points}P 획득</div>
         </div>
       </div>
     </div>
   );
+};
+
+const getNicknameColor = (backgroundColor) => {
+  const colors = {
+    "#e1edde": "#578246",
+    "#fff1cc": "#c18e1b",
+    "#e0f1f5": "#418099",
+    "#fde0e9": "#bc3c6a",
+  };
+  return colors[backgroundColor.toLowerCase()] || "#414141";
 };
 
 export default StudyListPage;
