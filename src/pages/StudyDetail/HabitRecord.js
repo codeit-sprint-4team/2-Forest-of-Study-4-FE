@@ -3,76 +3,73 @@ import sticker_empty from "../../assets/imgs/sticker_empty.png";
 import sticker_light_green_100_01 from "../../assets/imgs/sticker_light_green_100_01.png";
 import "../../style/HabitRecord.css";
 
-const getCurrentWeekDates = () => {
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-
-  const dates = [];
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(startOfWeek);
-    date.setDate(startOfWeek.getDate() + i);
-    dates.push(date);
-  }
-
-  return dates;
-};
-
-const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 const HabitTable = () => {
+  const [habits, setHabits] = useState([]);
   const [completedHabits, setCompletedHabits] = useState([]);
   const [loading, setLoading] = useState(true);
-  const currentWeekDates = getCurrentWeekDates();
 
-  const CompletedHabitsForWeek = async () => {
-    try {
-      const response = await fetch("주소주소");
-      const data = await response.json();
-      setCompletedHabits(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching completed habits:", error);
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchHabits = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/habits?studyId=123');
+        const data = await response.json();
+        setHabits(data);
+      } catch (error) {
+        console.error('Error fetching habits:', error);
+      }
+    };
 
-  const habitCompleted = (habitId, date) => {
-    return completedHabits.some((completed) => {
+    const fetchCompletedHabits = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/completed-habits?studyId=123');
+        const data = await response.json();
+        setCompletedHabits(data);
+      } catch (error) {
+        console.error('Error fetching completed habits:', error);
+      }
+    };
+
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchHabits();
+      await fetchCompletedHabits();
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const isHabitCompleted = (habitId, day) => {
+    return completedHabits.some(completed => {
       const completedDate = new Date(completed.completeDate);
-      return (
-        completed.habitId === habitId &&
-        completedDate.toDateString() === date.toDateString()
-      );
+      return completed.habitId === habitId && completedDate.getDay() === day;
     });
   };
 
-  useEffect(() => {
-    CompletedHabitsForWeek();
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="habitContainer">
       <h2 className="habitTitle">습관 기록표</h2>
       <table className="habitTable">
-        <thead>
+      <thead>
           <tr>
             <th></th>
-            {days.map((day, index) => (
+            {['월', '화', '수', '목', '금', '토', '일'].map((day, index) => (
               <th key={index}>{day}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {completedHabits.map((habit) => (
-            <tr key={habit.habit.id}>
-              <td>{habit.habit.habitName}</td>
-              {currentWeekDates.map((date, index) => (
-                <td key={index}>
-                  {habitCompleted(habit.habitId, date)
-                    ? sticker_empty
-                    : sticker_light_green_100_01}
+          {habits.map(habit => (
+            <tr key={habit.id}>
+              <td>{habit.habitName}</td>
+              {[0, 1, 2, 3, 4, 5, 6].map(day => (
+                <td key={day}>
+                  {isHabitCompleted(habit.id, day) ? sticker_light_green_100_01 : sticker_empty }
                 </td>
               ))}
             </tr>
