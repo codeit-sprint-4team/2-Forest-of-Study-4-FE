@@ -28,7 +28,7 @@ const HabitTable = () => {
 
   const CompletedHabitsForWeek = async () => {
     try {
-      const response = await fetch("웹주소가 있겠지요");
+      const response = await fetch("주소주소");
       const data = await response.json();
       setCompletedHabits(data);
       setLoading(false);

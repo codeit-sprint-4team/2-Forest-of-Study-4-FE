@@ -88,7 +88,7 @@ const Emoji = () => {
         ))}
       </div>
 
-      <button onClick={() => setEmojiPickerVisible(prev => !prev)}>
+      <button className='emojiButton' onClick={() => setEmojiPickerVisible(prev => !prev)}>
         이모지 추가
       </button>
 
