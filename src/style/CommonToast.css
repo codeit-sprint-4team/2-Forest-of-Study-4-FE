@@ -1,0 +1,51 @@
+.common-toast {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  max-width: 300px;
+  opacity: 0.95;
+
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  font-size: 16px;
+  z-index: 1020;
+  background-color: #fff;
+  gap: 10px;
+  min-width: 400px;
+}
+
+/* 성공 토스트 */
+.common-toast.toast-success {
+  background-color: #e1edde;
+  color: #578246;
+}
+
+.common-toast.toast-success img {
+  margin-right: 10px;
+}
+
+/* 에러 토스트 */
+.common-toast.toast-error {
+  background-color: #fde0e9;
+  color: #f50e0e;
+}
+
+.common-toast.toast-error img {
+  margin-right: 10px;
+}
+
+.common-toast.toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.common-toast img {
+  width: 16px;
+  height: 16px;
+}
