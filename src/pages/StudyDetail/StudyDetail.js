@@ -1,9 +1,10 @@
 import { useLocation, Link } from "react-router-dom";
 import Header from "../../components/commons/header/Header";
-import HabitTable from "./Habittable.js";
+import HabitTable from "./HabitTable.js";
 import Introduce from "./Introduce.js";
 import "../../style/StudyDetail.css";
 import Gnb from "../../components/commons/gnb/Gnb.js";
+import Emoji from "./Emoji.js";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -18,6 +19,7 @@ const StudyDetail = () => {
       <Gnb />
       <div className="study">
         <div className="studyContainer">
+          <Emoji />
           <Header
             title="연우"
             buttonTo1={`/habits?studyId=${studyId}`}
