@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../style/StudyListPage.css";
-import Gnb from "../components/commons/gnb/Gnb"; // gnb
-import { mockStudyData } from "../mock";
+import Gnb from "../components/commons/gnb/Gnb";
+import { fetchStudies } from "../api/studyApi";
 
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
   const [visibleStudies, setVisibleStudies] = useState(6);
   const [recentStudies, setRecentStudies] = useState([]);
+  const [studies, setStudies] = useState([]);
+
+  useEffect(() => {
+    const fetchStudiesData = async () => {
+      try {
+        const studiesData = await fetchStudies();
+        setStudies(studiesData);
+      } catch (error) {
+        console.error("스터디 목록 조회 실패:", error);
+      }
+    };
+
+    fetchStudiesData();
+  }, []);
 
   useEffect(() => {
     const storedRecentStudies =
@@ -16,19 +30,17 @@ const StudyListPage = () => {
     setRecentStudies(storedRecentStudies);
   }, []);
 
-  const filteredStudies = mockStudyData.filter((study) =>
-    study.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredStudies = studies.filter((study) =>
+    study.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const sortedStudies = [...filteredStudies].sort((a, b) => {
     if (sortOption === "recent") {
-      return b.id - a.id;
+      return new Date(b.createdAt) - new Date(a.createdAt);
     } else if (sortOption === "oldest") {
-      return a.id - b.id;
-    } else if (sortOption === "highPoints") {
-      return b.points - a.points;
+      return new Date(a.createdAt) - new Date(b.createdAt);
     } else {
-      return a.points - b.points;
+      return 0;
     }
   });
 
@@ -82,8 +94,6 @@ const StudyListPage = () => {
             >
               <option value="recent">최근 순</option>
               <option value="oldest">오래된 순</option>
-              <option value="highPoints">많은 포인트 순</option>
-              <option value="lowPoints">적은 포인트 순</option>
             </select>
           </div>
         </div>
@@ -109,41 +119,22 @@ const StudyListPage = () => {
 };
 
 const StudyCard = ({ study, onClick }) => {
-  const cardStyle = study.cardColor
-    ? { backgroundColor: study.cardColor }
+  const isColor = /^#([0-9A-F]{3}){1,2}$/i.test(study.background);
+
+  const cardStyle = isColor
+    ? { backgroundColor: study.background }
     : {
-        backgroundImage: `url(${study.image})`,
+        backgroundImage: `url(${study.background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       };
 
-  const hasImageBackground = study.image ? "image-background" : "";
-
   return (
-    <div
-      className={`study-card ${hasImageBackground}`}
-      style={cardStyle}
-      onClick={onClick}
-    >
+    <div className="study-card" style={cardStyle} onClick={onClick}>
       <div className="study-card-frame">
         <div className="study-content">
-          <h3>{study.title}</h3>
+          <h3>{`${study.nickname}의 ${study.name}`}</h3>
           <p>{study.description}</p>
-        </div>
-
-        <div className="study-info">
-          <div className="participants">
-            <img src="/path-to-participant-icon" alt="참여자" />
-            {study.participants}
-          </div>
-          <div className="likes">
-            <img src="/path-to-likes-icon" alt="좋아요" />
-            {study.thumbsUp}
-          </div>
-          <div className="comments">
-            <img src="/path-to-comments-icon" alt="댓글" />
-            {study.comments}
-          </div>
         </div>
       </div>
     </div>
