@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import sticker_empty from "../../assets/imgs/sticker_empty.png";
 import sticker_light_green_100_01 from "../../assets/imgs/sticker_light_green_100_01.png";
-import "../../style/Habittable.css";
+import "../../style/HabitTable.css";
 
 const getCurrentWeekDates = () => {
   const today = new Date();

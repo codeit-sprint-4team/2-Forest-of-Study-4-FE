@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
-import '../../style/Emoji.css'
+import '../../style/Emoji.css';
 
 const Emoji = () => {
   const [EmojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -8,14 +8,25 @@ const Emoji = () => {
 
   const handleEmojiClick = (event, emojiObject) => {
     const selectedEmoji = emojiObject.emoji;
-    setText(prevText => prevText + selectedEmoji);
     setEmojiPickerVisible(false);
+    
+
+    const existingEmoji = emojiList.find(item => item.emoji === selectedEmoji);
+    if (existingEmoji) {
+
+      setEmojiList(prevList =>
+        prevList.map(item =>
+          item.emoji === selectedEmoji
+            ? { ...item, count: item.count + 1 }
+            : item
+        )
+      );
+    } else {
+      setEmojiList(prevList => [...prevList, { emoji: selectedEmoji, count: 1 }]);
+    }
     saveEmoji(selectedEmoji);
   };
 
-  const toggleEmojiPicker = () => {
-    setEmojiPickerVisible(prevState => !prevState);
-  };
 
   const saveEmoji = async (emoji) => {
     try {
@@ -30,9 +41,6 @@ const Emoji = () => {
       if (!response.ok) {
         throw new Error('Failed to save emoji');
       }
-
-      const result = await response.json();
-      console.log('Emoji saved:', result);
       getEmoji();
     } catch (error) {
       console.error('Error saving emoji:', error);
@@ -63,7 +71,7 @@ const Emoji = () => {
       count,
     }));
 
-    setEmojiList(emojiArray);
+    setEmojiList(emojiArray); 
   };
 
   useEffect(() => {
@@ -72,23 +80,23 @@ const Emoji = () => {
 
   return (
     <div>
-      <ul>
+      <div>
         {emojiList.map(({ emoji, count }) => (
-          <li key={emoji}>
+          <button key={emoji} onClick={() => handleEmojiClick(null, { emoji })}>
             {emoji} {count}
-          </li>
+          </button>
         ))}
-      </ul>
-      <button onClick={toggleEmojiPicker}>
-        추가
+      </div>
+
+      <button onClick={() => setEmojiPickerVisible(prev => !prev)}>
+        이모지 추가
       </button>
+
       {EmojiPickerVisible && (
         <div style={{ position: 'absolute', zIndex: 1 }}>
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         </div>
       )}
-
-      
     </div>
   );
 };
