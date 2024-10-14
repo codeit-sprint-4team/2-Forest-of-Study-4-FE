@@ -13,6 +13,7 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtime, setOvertime] = useState(0);
+  const [points, setPoints] = useState(0); // 현재까지 획득한 포인트
 
   useEffect(() => {
     let timer;
@@ -105,6 +106,10 @@ const Timer = () => {
         <div className="timer-container">
           <div className="header-wrapper">
             <Header title="title" buttonTitle1="오늘의 습관" buttonTitle2="홈" buttonTo1="/habits" buttonTo2="/" />
+          </div>
+          <div className="points-container">
+            <span className="points-label">현재까지 획득한 포인트</span>
+            <div className="points-value">{currentPoints}P 획득</div>
           </div>
           <div className="timer-content">
             {isEditing ? (
