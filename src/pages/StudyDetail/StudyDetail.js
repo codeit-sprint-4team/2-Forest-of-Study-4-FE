@@ -1,6 +1,6 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../../components/commons/header/Header";
-import HabitTable from "./HabitTable.js";
+import HabitTable from "./HabitRecord.js";
 import Introduce from "./Introduce.js";
 import "../../style/StudyDetail.css";
 import Gnb from "../../components/commons/gnb/Gnb.js";
