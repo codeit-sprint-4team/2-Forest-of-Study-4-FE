@@ -19,22 +19,21 @@ const getCurrentWeekDates = () => {
   return dates;
 };
 
-const days = ['월', '화', '수', '목', '금', '토', '일'];
+const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 const HabitTable = () => {
   const [completedHabits, setCompletedHabits] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentWeekDates = getCurrentWeekDates();
 
-
   const CompletedHabitsForWeek = async () => {
     try {
-      const response = await fetch('웹주소가 있겠지요');
+      const response = await fetch("웹주소가 있겠지요");
       const data = await response.json();
       setCompletedHabits(data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching completed habits:', error);
+      console.error("Error fetching completed habits:", error);
       setLoading(false);
     }
   };
@@ -42,7 +41,10 @@ const HabitTable = () => {
   const habitCompleted = (habitId, date) => {
     return completedHabits.some((completed) => {
       const completedDate = new Date(completed.completeDate);
-      return completed.habitId === habitId && completedDate.toDateString() === date.toDateString();
+      return (
+        completed.habitId === habitId &&
+        completedDate.toDateString() === date.toDateString()
+      );
     });
   };
 
@@ -50,14 +52,11 @@ const HabitTable = () => {
     CompletedHabitsForWeek();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className="habitContainer">
       <h2 className="habitTitle">습관 기록표</h2>
       <table className="habitTable">
-      <thead>
+        <thead>
           <tr>
             <th></th>
             {days.map((day, index) => (
@@ -71,7 +70,9 @@ const HabitTable = () => {
               <td>{habit.habit.habitName}</td>
               {currentWeekDates.map((date, index) => (
                 <td key={index}>
-                  {habitCompleted(habit.habitId, date) ? sticker_empty : sticker_light_green_100_01}
+                  {habitCompleted(habit.habitId, date)
+                    ? sticker_empty
+                    : sticker_light_green_100_01}
                 </td>
               ))}
             </tr>
