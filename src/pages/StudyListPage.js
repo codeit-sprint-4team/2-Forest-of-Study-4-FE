@@ -26,6 +26,23 @@ const StudyListPage = () => {
     setRecentStudies(storedRecentStudies);
   }, []);
 
+  // 스터디 클릭 시 처리: 최근 조회 스터디에 추가 및 페이지 이동
+  const handleStudyClick = (study) => {
+    updateRecentStudies(study);
+    navigate(`/study-detail?studyId=${study.id}`);
+  };
+
+  // 최근 조회한 스터디 업데이트 함수
+  const updateRecentStudies = (study) => {
+    const updatedRecentStudies = [
+      study,
+      ...recentStudies.filter((s) => s.id !== study.id),
+    ].slice(0, 3);
+    setRecentStudies(updatedRecentStudies);
+    localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
+  };
+
+  // 검색 및 정렬 처리
   const filteredStudies = studies.filter((study) =>
     study.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -44,16 +61,6 @@ const StudyListPage = () => {
   });
 
   const loadMore = () => setVisibleStudies((prev) => prev + 3);
-
-  const handleStudyClick = (study) => {
-    const updatedRecentStudies = [
-      study,
-      ...recentStudies.filter((s) => s.id !== study.id),
-    ].slice(0, 3);
-    setRecentStudies(updatedRecentStudies);
-    localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
-    navigate(`/study-detail?studyId=${study.id}`);
-  };
 
   return (
     <div className="study-list-page">
