@@ -1,0 +1,122 @@
+.CommonModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  flex-direction: column;
+  position: fixed;
+}
+
+.modalBox {
+  width: 648px;
+  max-height: 861px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0 16px;
+}
+
+.submitButton {
+  background-color: #99c08e;
+  width: 288px;
+  height: 58px;
+  border-radius: 15px;
+  border: none;
+  padding: 14px 105px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.modalTitle {
+  margin: 0;
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalContent {
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalButton {
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.modalClose {
+  width: 288px;
+  height: 58px;
+  border-radius: 15px;
+  border: none;
+  padding: 14px 105px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #818181;
+  white-space: nowrap;
+}
+
+.movePage {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
+  gap: 20px;
+}
+
+/* 반응형 CSS */
+@media (max-width: 1199px) and (min-width: 744px) {
+}
+
+@media (max-width: 743px) {
+  .modalBox {
+    width: 376px;
+    max-height: 741px;
+  }
+  .modalClose {
+    width: 140px;
+    height: 58px;
+    padding: 14px 33px;
+  }
+  .submitButton {
+    width: 140px;
+    height: 58px;
+    padding: 14px 33px;
+  }
+  .modalImg {
+    width: 312px;
+    height: 58px;
+  }
+}
+
+/* Modal.css이 이어서 추가 */
+.modalButtonWrapper {
+  display: flex;
+  gap: 24px;
+  padding: 40px 24px;
+}
+
+.modalButtonWrapper .modalClose,
+.modalButtonWrapper .submitButton {
+  width: 100%;
+}
+
+.modalButtonWrapper .modalClose {
+  background: #ddd;
+  color: #fff;
+  text-align: center;
+  font-family: EF_jejudoldam;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

@@ -2,9 +2,12 @@ import { useLocation, Link } from "react-router-dom";
 import Header from "../../components/commons/header/Header";
 import HabitTable from "./HabitRecord.js";
 import Introduce from "./Introduce.js";
-import "../../style/StudyDetail.css";
 import Gnb from "../../components/commons/gnb/Gnb.js";
 import Emoji from "./Emoji.js";
+import StudyDashboard from "./StudyDashboard.js";
+import { useEffect, useState } from "react";
+import { fetchStudy } from "../../api/studyApi.js";
+import "../../style/StudyDetail.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -14,12 +17,21 @@ const StudyDetail = () => {
   const query = useQuery();
   const studyId = query.get("studyId");
 
+  const [study, setStudy] = useState({});
+
+  useEffect(() => {
+    fetchStudy(studyId).then((data) => setStudy(data));
+  }, []);
+
   return (
     <>
       <Gnb />
       <div className="study">
         <div className="studyContainer">
-          <Emoji />
+          <div className="study-top">
+            <Emoji />
+            <StudyDashboard study={study} studyId={studyId} />
+          </div>
           <Header
             title="연우"
             buttonTo1={`/habits?studyId=${studyId}`}
