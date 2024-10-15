@@ -24,7 +24,7 @@ export const createStudy = async (studyData) => {
   }
 };
 
-export const fetchStudyById = async (studyId) => {
+export const fetchStudy = async (studyId) => {
   try {
     const response = await fetch(`${BASE_URL}/api/studies/${studyId}`);
     return await response.json();
