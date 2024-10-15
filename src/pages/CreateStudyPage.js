@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Gnb from "../components/commons/gnb/Gnb";
 import { backgrounds } from "../mock";
 import "../style/CreateStudyPage.css";
+import { createStudy } from "../api/studyApi";
+import { useNavigate } from "react-router-dom";
 
 const CreateStudyPage = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +13,6 @@ const CreateStudyPage = () => {
     password: "",
     passwordConfirm: "",
   });
-
   const [touchedFields, setTouchedFields] = useState({
     studyName: false,
     password: false,
@@ -20,7 +21,7 @@ const CreateStudyPage = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-
+  const navigate = useNavigate();
   const handleBackgroundSelect = (id) => {
     setSelectedBackground(id);
   };
@@ -52,13 +53,31 @@ const CreateStudyPage = () => {
     formData.passwordConfirm,
   ]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newStudy = {
+      name: formData.studyName,
+      nickname: formData.nickname,
+      description: formData.description,
+      password: formData.password,
+      background: backgrounds.find((bg) => bg.id === selectedBackground)?.value,
+    };
+
+    try {
+      await createStudy(newStudy);
+      navigate("/");
+    } catch (error) {
+      console.error("스터디 생성 실패:", error);
+    }
+  };
+
   return (
     <div className="create-study-container">
       <Gnb />
       <div className="create-study-page">
         <h1>스터디 만들기</h1>
 
-        <form className="study-form">
+        <form className="study-form" onSubmit={handleSubmit}>
           <label htmlFor="nickname">닉네임</label>
           <input
             type="text"

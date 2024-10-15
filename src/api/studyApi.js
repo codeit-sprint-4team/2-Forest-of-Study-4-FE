@@ -1,15 +1,34 @@
-const BASE_URL = "https://two-forest-of-study-4-be.onrender.com/studies";
+const BASE_URL = "https://two-forest-of-study-4-be.onrender.com";
 
-// 스터디 가져오기 GET
+export const fetchStudies = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/studies`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching studies:", error);
+  }
+};
+
+export const createStudy = async (studyData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/studies`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(studyData),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating study:", error);
+  }
+};
+
 export const fetchStudy = async (studyId) => {
   try {
-    // const response = await fetch(`${BASE_URL}?studyId=${studyId}`);
-    // return await response.json();
-    return {
-      name: "연우",
-      description: "설명설명",
-    };
-  } catch (e) {
-    console.log(`Error: ${e.message}`);
+    const response = await fetch(`${BASE_URL}/api/studies/${studyId}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching study by ID:", error);
   }
 };

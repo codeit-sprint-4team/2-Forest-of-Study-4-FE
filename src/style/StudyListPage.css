@@ -1,3 +1,4 @@
+/* StudyListPage.css */
 * {
   box-sizing: border-box;
   font-family: pretendard;
@@ -34,6 +35,15 @@ body {
   margin-bottom: 20px;
 }
 
+.browse-studies {
+  width: 1200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
 .search-sort {
   display: flex;
   align-items: center;
@@ -57,70 +67,76 @@ body {
 
 .study-list {
   display: flex;
-  gap: 20px;
+  gap: 26px;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .study-card {
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
   width: 358px;
   height: 243px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-}
-
-.recent-studies {
-  width: 1200px;
-  height: 382px;
-  background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 40px;
-  position: relative;
-}
-
-.recent-studies-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.empty-studies-message {
-  font-size: 20px;
-  font-weight: 500;
-  color: #818181;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.study-card-inner {
-  width: 298px;
-  height: 183px;
-  padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+  color: #414141;
 }
 
-.study-content {
-  color: black;
-}
-
-.image-background .study-content {
+.study-card.image-background {
   color: white;
+}
+
+.study-card:hover {
+  transform: translateY(-5px);
+}
+
+.study-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.study-progress {
+  font-size: 14px;
+  color: #414141;
+}
+
+.study-description {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.study-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.study-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.study-icons span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.study-points {
+  background-color: #99c08e;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .load-more {
@@ -146,51 +162,42 @@ body {
   border: 1px solid #4caf50;
 }
 
-.study-info {
-  display: flex;
-  justify-content: space-between;
+.recent-studies {
+  width: 100%;
+  max-width: 1200px;
+  height: 382px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+  position: relative;
 }
 
-/* 반응형 CSS */
-@media (min-width: 1200px) {
-  .study-list {
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 1199px) and (min-width: 744px) {
-  .study-list-page {
-    padding-top: 50px;
-  }
-  .study-list {
-    gap: 20px;
-    justify-content: center;
-  }
-  .study-card {
-    width: 300px;
-    height: 200px;
-  }
+.empty-studies-message {
+  font-size: 20px;
+  font-weight: 500;
+  color: #818181;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 @media (max-width: 743px) {
   .study-list-page {
     padding-top: 20px;
   }
+
   .study-list {
     flex-direction: column;
     gap: 15px;
   }
+
   .study-card {
     width: 100%;
     max-width: 400px;
     height: auto;
-  }
-  .study-card-inner {
-    width: 100%;
-    height: auto;
-  }
-  .load-more {
-    width: 100%;
-    max-width: 400px;
   }
 }

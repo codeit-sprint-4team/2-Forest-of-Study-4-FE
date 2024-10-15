@@ -17,11 +17,24 @@ const StudyDetail = () => {
   const query = useQuery();
   const studyId = query.get("studyId");
 
-  const [study, setStudy] = useState({});
+  const [study, setStudy] = useState(null);
 
   useEffect(() => {
-    fetchStudy(studyId).then((data) => setStudy(data));
-  }, []);
+    const fetchStudyData = async () => {
+      try {
+        const data = await fetchStudy(studyId);
+        setStudy(data);
+      } catch (error) {
+        console.error("스터디 정보를 가져오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchStudyData();
+  }, [studyId]);
+
+  if (!study) {
+    return <p>스터디 정보를 불러오는 중입니다...</p>;
+  }
 
   return (
     <>
@@ -33,17 +46,18 @@ const StudyDetail = () => {
             <StudyDashboard study={study} studyId={studyId} />
           </div>
           <Header
-            title="연우"
+            title={study.name || "스터디"}
             buttonTo1={`/habits?studyId=${studyId}`}
             buttonTo2="/timer"
             buttonTitle1="오늘의 습관"
             buttonTitle2="오늘의 집중"
           />
-          <Introduce content="오늘 하루도 화이팅 :)" point="310" />
+          <Introduce content={study.description || "스터디 설명"} point="310" />
           <HabitTable />
         </div>
       </div>
     </>
   );
 };
+
 export default StudyDetail;

@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../style/StudyListPage.css";
-import Gnb from "../components/commons/gnb/Gnb"; // gnb
-import { mockStudyData } from "../mock";
+import Gnb from "../components/commons/gnb/Gnb";
+import { fetchStudies } from "../api/studyApi";
 
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("recent");
   const [visibleStudies, setVisibleStudies] = useState(6);
   const [recentStudies, setRecentStudies] = useState([]);
+  const [studies, setStudies] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchStudiesData = async () => {
+      const studiesData = await fetchStudies();
+      setStudies(studiesData);
+    };
+    fetchStudiesData();
+  }, []);
 
   useEffect(() => {
     const storedRecentStudies =
@@ -16,27 +26,14 @@ const StudyListPage = () => {
     setRecentStudies(storedRecentStudies);
   }, []);
 
-  const filteredStudies = mockStudyData.filter((study) =>
-    study.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const sortedStudies = [...filteredStudies].sort((a, b) => {
-    if (sortOption === "recent") {
-      return b.id - a.id;
-    } else if (sortOption === "oldest") {
-      return a.id - b.id;
-    } else if (sortOption === "highPoints") {
-      return b.points - a.points;
-    } else {
-      return a.points - b.points;
-    }
-  });
-
-  const loadMore = () => {
-    setVisibleStudies((prev) => prev + 3);
+  // 스터디 클릭 시 처리: 최근 조회 스터디에 추가 및 페이지 이동
+  const handleStudyClick = (study) => {
+    updateRecentStudies(study);
+    navigate(`/study-detail?studyId=${study.id}`);
   };
 
-  const handleStudyClick = (study) => {
+  // 최근 조회한 스터디 업데이트 함수
+  const updateRecentStudies = (study) => {
     const updatedRecentStudies = [
       study,
       ...recentStudies.filter((s) => s.id !== study.id),
@@ -45,27 +42,46 @@ const StudyListPage = () => {
     localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
   };
 
+  // 검색 및 정렬 처리
+  const filteredStudies = studies.filter((study) =>
+    study.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedStudies = filteredStudies.sort((a, b) => {
+    if (sortOption === "recent") {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    } else if (sortOption === "oldest") {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    } else if (sortOption === "highPoints") {
+      return b.points - a.points;
+    } else if (sortOption === "lowPoints") {
+      return a.points - b.points;
+    }
+    return 0;
+  });
+
+  const loadMore = () => setVisibleStudies((prev) => prev + 3);
+
   return (
     <div className="study-list-page">
       <Gnb />
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
-          {recentStudies.length > 0 ? (
+          {recentStudies.length ? (
             recentStudies.map((study) => (
-              <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
-                <StudyCard
-                  key={study.id}
-                  study={study}
-                  onClick={() => handleStudyClick(study)}
-                />
-              </Link>
+              <StudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleStudyClick(study)}
+              />
             ))
           ) : (
             <p className="empty-studies-message">아직 조회한 스터디가 없어요</p>
           )}
         </div>
       </section>
+
       <section className="frame browse-studies">
         <div className="browse-header">
           <h2>스터디 둘러보기</h2>
@@ -88,15 +104,21 @@ const StudyListPage = () => {
           </div>
         </div>
         <div className="study-list">
-          {sortedStudies.slice(0, visibleStudies).map((study) => (
-            <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
-              <StudyCard
-                key={study.id}
-                study={study}
-                onClick={() => handleStudyClick(study)}
-              />
-            </Link>
-          ))}
+          {sortedStudies.length ? (
+            sortedStudies
+              .slice(0, visibleStudies)
+              .map((study) => (
+                <StudyCard
+                  key={study.id}
+                  study={study}
+                  onClick={() => handleStudyClick(study)}
+                />
+              ))
+          ) : (
+            <p className="empty-studies-message">
+              아직 둘러 볼 스터디가 없어요
+            </p>
+          )}
         </div>
         {visibleStudies < sortedStudies.length && (
           <button className="load-more" onClick={loadMore}>
@@ -109,45 +131,62 @@ const StudyListPage = () => {
 };
 
 const StudyCard = ({ study, onClick }) => {
-  const cardStyle = study.cardColor
-    ? { backgroundColor: study.cardColor }
+  const isColor = /^#([0-9A-F]{3}){1,2}$/i.test(study.background);
+
+  const cardStyle = isColor
+    ? { backgroundColor: study.background }
     : {
-        backgroundImage: `url(${study.image})`,
+        backgroundImage: `url(${study.background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       };
 
-  const hasImageBackground = study.image ? "image-background" : "";
+  const nicknameStyle = isColor
+    ? { color: getNicknameColor(study.background) }
+    : { color: "white" };
+
+  const progressStyle = isColor ? { color: "#414141" } : { color: "white" };
 
   return (
     <div
-      className={`study-card ${hasImageBackground}`}
+      className={isColor ? "study-card" : "study-card image-background"}
       style={cardStyle}
       onClick={onClick}
     >
       <div className="study-card-frame">
-        <div className="study-content">
-          <h3>{study.title}</h3>
-          <p>{study.description}</p>
+        <div className="study-card-header">
+          <h3>
+            <span style={nicknameStyle} className="nickname">
+              {study.nickname}
+            </span>
+            의 {study.name}
+          </h3>
+          <span className="study-progress" style={progressStyle}>
+            {study.progressDays}일째 진행 중
+          </span>
         </div>
-
-        <div className="study-info">
-          <div className="participants">
-            <img src="/path-to-participant-icon" alt="참여자" />
-            {study.participants}
+        <p className="study-description">{study.description}</p>
+        <div className="study-card-footer">
+          <div className="study-icons">
+            <span>🙋‍♂️ {study.participants}</span>
+            <span>🔥 {study.activities}</span>
+            <span>❤️ {study.likes}</span>
           </div>
-          <div className="likes">
-            <img src="/path-to-likes-icon" alt="좋아요" />
-            {study.thumbsUp}
-          </div>
-          <div className="comments">
-            <img src="/path-to-comments-icon" alt="댓글" />
-            {study.comments}
-          </div>
+          <div className="study-points">{study.points}P 획득</div>
         </div>
       </div>
     </div>
   );
+};
+
+const getNicknameColor = (backgroundColor) => {
+  const colors = {
+    "#e1edde": "#578246",
+    "#fff1cc": "#c18e1b",
+    "#e0f1f5": "#418099",
+    "#fde0e9": "#bc3c6a",
+  };
+  return colors[backgroundColor.toLowerCase()] || "#414141";
 };
 
 export default StudyListPage;
