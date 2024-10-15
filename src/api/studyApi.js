@@ -1,8 +1,8 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://two-forest-of-study-4-be.onrender.com";
 
 export const fetchStudies = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/studies`);
+    const response = await fetch(`${BASE_URL}/api/studies`);
     return await response.json();
   } catch (error) {
     console.error("Error fetching studies:", error);
@@ -11,7 +11,7 @@ export const fetchStudies = async () => {
 
 export const createStudy = async (studyData) => {
   try {
-    const response = await fetch(`${BASE_URL}/studies`, {
+    const response = await fetch(`${BASE_URL}/api/studies`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const createStudy = async (studyData) => {
 
 export const fetchStudyById = async (studyId) => {
   try {
-    const response = await fetch(`${BASE_URL}/studies/${studyId}`);
+    const response = await fetch(`${BASE_URL}/api/studies/${studyId}`);
     return await response.json();
   } catch (error) {
     console.error("Error fetching study by ID:", error);

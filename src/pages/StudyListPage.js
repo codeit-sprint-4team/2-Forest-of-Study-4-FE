@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../style/StudyListPage.css";
 import Gnb from "../components/commons/gnb/Gnb";
 import { fetchStudies } from "../api/studyApi";
@@ -10,15 +10,12 @@ const StudyListPage = () => {
   const [visibleStudies, setVisibleStudies] = useState(6);
   const [recentStudies, setRecentStudies] = useState([]);
   const [studies, setStudies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStudiesData = async () => {
-      try {
-        const studiesData = await fetchStudies();
-        setStudies(studiesData);
-      } catch (error) {
-        console.error("스터디 목록 조회 실패:", error);
-      }
+      const studiesData = await fetchStudies();
+      setStudies(studiesData);
     };
     fetchStudiesData();
   }, []);
@@ -55,6 +52,7 @@ const StudyListPage = () => {
     ].slice(0, 3);
     setRecentStudies(updatedRecentStudies);
     localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
+    navigate(`/study-detail?studyId=${study.id}`);
   };
 
   return (
@@ -65,18 +63,18 @@ const StudyListPage = () => {
         <div className="study-list">
           {recentStudies.length ? (
             recentStudies.map((study) => (
-              <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
-                <StudyCard
-                  study={study}
-                  onClick={() => handleStudyClick(study)}
-                />
-              </Link>
+              <StudyCard
+                key={study.id}
+                study={study}
+                onClick={() => handleStudyClick(study)}
+              />
             ))
           ) : (
             <p className="empty-studies-message">아직 조회한 스터디가 없어요</p>
           )}
         </div>
       </section>
+
       <section className="frame browse-studies">
         <div className="browse-header">
           <h2>스터디 둘러보기</h2>
@@ -99,14 +97,21 @@ const StudyListPage = () => {
           </div>
         </div>
         <div className="study-list">
-          {sortedStudies.slice(0, visibleStudies).map((study) => (
-            <Link key={study.id} to={`/study-detail?studyId=${study.id}`}>
-              <StudyCard
-                study={study}
-                onClick={() => handleStudyClick(study)}
-              />
-            </Link>
-          ))}
+          {sortedStudies.length ? (
+            sortedStudies
+              .slice(0, visibleStudies)
+              .map((study) => (
+                <StudyCard
+                  key={study.id}
+                  study={study}
+                  onClick={() => handleStudyClick(study)}
+                />
+              ))
+          ) : (
+            <p className="empty-studies-message">
+              아직 둘러 볼 스터디가 없어요
+            </p>
+          )}
         </div>
         {visibleStudies < sortedStudies.length && (
           <button className="load-more" onClick={loadMore}>
