@@ -34,11 +34,13 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .headerButtonList {
   display: flex;
   gap: 16px;
+  margin-left: auto; /* 버튼을 오른쪽으로 이동시키기 위해 추가 */
 }
 
 /* 반응형 CSS */

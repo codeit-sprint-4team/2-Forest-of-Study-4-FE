@@ -1,3 +1,4 @@
+/* 전체 레이아웃 조정 */
 .timer-wrapper {
   display: flex;
   justify-content: center;
@@ -14,36 +15,56 @@
   height: 774px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  gap: 20px; /* 요소들 간의 간격 추가 */
 }
 
+/* 헤더 및 버튼 관련 스타일 */
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* 포인트 관련 스타일 수정 */
+.points-container {
+  text-align: left;
+  margin-top: 10px; /* 포인트 레이블이 헤더 바로 아래에 오도록 조정 */
+}
+
+.points-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #818181;
+  margin-bottom: 4px;
+}
+
+.points-value {
+  display: inline-block;
+  background-color: #f0f4ef;
+  color: #6e9a52;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 50px;
+  padding: 8px 12px;
+  margin-top: 4px; /* 포인트 레이블 바로 아래에 위치 */
+  margin-left: 0; /* 옆으로 붙지 않도록 조정 */
+}
+
+/* 타이머 내용 정렬 */
 .timer-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px; /* 타이머와 다른 요소들 간의 간격 */
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px; /* 타이머를 좀 더 위로 끌어올리기 */
 }
 
 .timer-display {
   font-size: 48px;
   cursor: pointer;
   margin-bottom: 20px;
-  text-align: center;
-}
-
-.overtime {
-  color: #818181;
-}
-
-.running {
-  color: red;
-}
-
-.timer-input {
-  font-size: 48px;
-  text-align: center;
-  width: 150px;
 }
 
 .button-container {
@@ -75,26 +96,34 @@
   border-radius: 10px;
 }
 
-.points-container {
+/* Toast 관련 스타일 조정 */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 10px;
 }
 
-.points-label {
-  font-weight: 500;
-  font-size: 14px;
-  color: #818181;
-  margin-bottom: 4px;
+.toast-success {
+  background-color: #A3C182;
+  color: #ffffff;
 }
 
-.points-value {
-  display: inline-block;
-  background-color: #f0f4ef;
-  color: #6e9a52;
-  font-weight: 700;
+.toast-error {
+  background-color: #FF6B6B;
+  color: #ffffff;
+}
+
+.toast-icon {
+  font-size: 20px;
+}
+
+.toast-message {
   font-size: 16px;
-  border-radius: 50px;
-  padding: 8px 12px;
 }

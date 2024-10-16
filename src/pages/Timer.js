@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
-import "../style/Timer.css"
+import "../style/Timer.css";
+import Toast from "../components/commons/toast/Toast";
 
 const Timer = () => {
   const defaultTime = 1500; // 기본값 25분 (1500초)
   const [timeLeft, setTimeLeft] = useState(defaultTime);
   const [isRunning, setIsRunning] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [inputTime, setInputTime] = useState("25:00");
   const [timerStarted, setTimerStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isOvertime, setIsOvertime] = useState(false);
   const [overtime, setOvertime] = useState(0);
-  const [points, setPoints] = useState(0); // 현재까지 획득한 포인트
+  const [currentPoints, setCurrentPoints] = useState(310); // 예시로 초기 포인트 설정
+  const [showToast, setShowToast] = useState(false);
+  const [toastContent, setToastContent] = useState("");
+  const [toastType, setToastType] = useState("");
 
   useEffect(() => {
     let timer;
@@ -55,6 +59,10 @@ const Timer = () => {
   const pauseTimer = () => {
     setIsRunning(false);
     setIsPaused(true);
+    setToastContent("집중이 중단되었습니다.");
+    setToastType("toast-error");
+    setShowToast(true);
+    hideToastAfterDelay();
   };
 
   const resetTimer = () => {
@@ -68,7 +76,26 @@ const Timer = () => {
   };
 
   const stopTimer = () => {
+    if (timeLeft <= 0) {
+      // 시간이 다 지나거나 초과된 경우
+      const earnedPoints = 3 + Math.floor(overtime / 600);
+      setCurrentPoints(prev => prev + earnedPoints); // 포인트 업데이트
+      setToastContent(`${earnedPoints} 포인트를 획득하였습니다.`);
+      setToastType("toast-success");
+    } else {
+      // 중간에 정지한 경우
+      setToastContent("집중이 중단되었습니다.");
+      setToastType("toast-error");
+    }
+    setShowToast(true);
+    hideToastAfterDelay();
     resetTimer();
+  };
+
+  const hideToastAfterDelay = () => {
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000); // 3초 후 토스트 숨기기
   };
 
   const inputTimeToSeconds = (time) => {
@@ -107,8 +134,8 @@ const Timer = () => {
           <div className="header-wrapper">
             <Header title="title" buttonTitle1="오늘의 습관" buttonTitle2="홈" buttonTo1="/habits" buttonTo2="/" />
           </div>
-          <div className="points-container">
-            <span className="points-label">현재까지 획득한 포인트</span>
+          <div className="points-display">
+            <span>현재까지 획득한 포인트</span>
             <div className="points-value">{currentPoints}P 획득</div>
           </div>
           <div className="timer-content">
@@ -164,6 +191,7 @@ const Timer = () => {
           {/* 필요한 추가 콘텐츠가 있을 경우 여기에 추가 */}
         </div>
       </div>
+      {showToast && <Toast toastContent={toastContent} type={toastType} />}
     </div>
   );
 };
