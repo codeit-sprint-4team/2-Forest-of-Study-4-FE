@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import EmojiPicker from 'emoji-picker-react';
 import '../../style/Emoji.css';
 
 const Emoji = () => {
   const [EmojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [emojiList, setEmojiList] = useState([]);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const studyId = queryParams.get('studyId');
 
-  const handleEmojiClick = (event, emojiObject) => {
+  const handleEmojiClick = (emojiObject) => {
     const selectedEmoji = emojiObject.emoji;
     setEmojiPickerVisible(false);
-    
 
     const existingEmoji = emojiList.find(item => item.emoji === selectedEmoji);
     if (existingEmoji) {
-
       setEmojiList(prevList =>
         prevList.map(item =>
           item.emoji === selectedEmoji
@@ -27,29 +29,28 @@ const Emoji = () => {
     saveEmoji(selectedEmoji);
   };
 
-
   const saveEmoji = async (emoji) => {
     try {
-      const response = await fetch('주소주소', {
+      const response = await fetch('https://two-forest-of-study-4-be.onrender.com/emojis/emoji', {
+        
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ emoji }),
+        body: JSON.stringify({ emoji, studyId }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to save emoji');
       }
-      getEmoji();
     } catch (error) {
       console.error('Error saving emoji:', error);
     }
   };
 
-  const getEmoji = async () => {
+  const getEmojis = async () => {
     try {
-      const response = await fetch('주소주소');
+      const response = await fetch(`https://two-forest-of-study-4-be.onrender.com/emojis/emoji?studyId=${studyId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch emojis');
       }
@@ -61,28 +62,24 @@ const Emoji = () => {
   };
 
   const processEmojiList = (emojis) => {
-    const emojiCountMap = emojis.reduce((acc, emoji) => {
-      acc[emoji] = (acc[emoji] || 0) + 1;
-      return acc;
-    }, {});
-
-    const emojiArray = Object.entries(emojiCountMap).map(([emoji, count]) => ({
+    const emojiArray = emojis.map(({ emoji, _count }) => ({
       emoji,
-      count,
+      count: _count.emoji,
     }));
-
     setEmojiList(emojiArray); 
   };
 
   useEffect(() => {
-    getEmoji();
-  }, []);
+    if (studyId) {
+      getEmojis();
+    }
+  }, [studyId]);
 
   return (
     <div>
       <div>
         {emojiList.map(({ emoji, count }) => (
-          <button className='emojiButton' key={emoji} onClick={() => handleEmojiClick(null, { emoji })}>
+          <button className='emojiButton' key={emoji} onClick={() => handleEmojiClick({ emoji })}>
             {emoji} {count}
           </button>
         ))}
