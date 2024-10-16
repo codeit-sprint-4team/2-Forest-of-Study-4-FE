@@ -178,12 +178,14 @@ Database: PostgreSQL
 
 ## 구현 홈페이지
 
-![Page 1](./imgs/page1.jpg)
-![Page 2](./imgs/page2.jpg)
-![Page 3](./imgs/page3.jpg)
-![Page 4](./imgs/page4.jpg)
-![Page 5](./imgs/page5.jpg)
-![Page 6](./imgs/page6.jpg)
-![Page 7](./imgs/page7.jpg)
-![Page 8](./imgs/page8.jpg)
-![Page 9](./imgs/page9.jpg)
+## 구현 홈페이지
+
+![Page 1](/imgs/page1.png)
+![Page 2](/imgs/page2.png)
+![Page 3](/imgs/page3.png)
+![Page 4](/imgs/page4.png)
+![Page 5](/imgs/page5.png)
+![Page 6](/imgs/page6.png)
+![Page 7](/imgs/page7.png)
+![Page 8](/imgs/page8.png)
+![Page 9](/imgs/page9.png)
