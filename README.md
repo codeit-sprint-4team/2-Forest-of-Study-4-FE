@@ -178,14 +178,12 @@ Database: PostgreSQL
 
 ## 구현 홈페이지
 
-## 구현 홈페이지
-
-![Page 1](/imgs/page1.png)
-![Page 2](/imgs/page2.png)
-![Page 3](/imgs/page3.png)
-![Page 4](/imgs/page4.png)
-![Page 5](/imgs/page5.png)
-![Page 6](/imgs/page6.png)
-![Page 7](/imgs/page7.png)
-![Page 8](/imgs/page8.png)
-![Page 9](/imgs/page9.png)
+![page1](https://github.com/user-attachments/assets/828876e0-1470-4590-b9ee-1e80d64c69f9)
+![page2](https://github.com/user-attachments/assets/4f226e64-74a4-4139-9f7b-074e1058bd78)
+![page3](https://github.com/user-attachments/assets/e748c784-91dc-45b6-abf7-8198be746ba8)
+![page4](https://github.com/user-attachments/assets/5c6c08f4-3b6f-4ff8-9b5a-039ab287fc57)
+![page5](https://github.com/user-attachments/assets/a3975da6-10b2-416b-937e-c2b22306ffb2)
+![page6](https://github.com/user-attachments/assets/04a2976c-fd25-4604-8830-a9927dbb396a)
+![page7](https://github.com/user-attachments/assets/945d424a-96cb-44b8-8594-ecd7740563fd)
+![page8](https://github.com/user-attachments/assets/3cda8fa7-3a14-4659-a2bc-8065162a679b)
+![page9](https://github.com/user-attachments/assets/85723e41-4054-46a5-9f64-4ecf2222f60e)
