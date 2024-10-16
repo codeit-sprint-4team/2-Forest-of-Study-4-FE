@@ -176,7 +176,7 @@ const StudyCard = ({ study, onClick, emojis = [] }) => {
               </span>
             ))}
           </div>
-          <div className="study-points">{study.points}P 획득</div>
+          <div className="study-points">{study.points}P 획득</div>{" "}
         </div>
       </div>
     </div>
