@@ -85,6 +85,7 @@ Database: PostgreSQL
 
 ## 파일 구조
 
+```
 📦 프로젝트 루트
 ┣ 📜.gitignore
 ┣ 📜package-lock.json
@@ -118,6 +119,7 @@ Database: PostgreSQL
 ┣ 📂styles
 ┃ ┗ 📜global.css
 ┗ 📜App.js
+```
 
 # 팀 내 컨벤션
 
@@ -175,3 +177,13 @@ Database: PostgreSQL
 | 참고      | Ref(참고), Related to(관련), See also(참고) |
 
 ## 구현 홈페이지
+
+![Page 1](./imgs/page1.jpg)
+![Page 2](./imgs/page2.jpg)
+![Page 3](./imgs/page3.jpg)
+![Page 4](./imgs/page4.jpg)
+![Page 5](./imgs/page5.jpg)
+![Page 6](./imgs/page6.jpg)
+![Page 7](./imgs/page7.jpg)
+![Page 8](./imgs/page8.jpg)
+![Page 9](./imgs/page9.jpg)
