@@ -130,7 +130,7 @@ const StudyListPage = () => {
   );
 };
 
-const StudyCard = ({ study, onClick }) => {
+const StudyCard = ({ study, onClick, emojis = [] }) => {
   const isColor = /^#([0-9A-F]{3}){1,2}$/i.test(study.background);
 
   const cardStyle = isColor
@@ -146,6 +146,8 @@ const StudyCard = ({ study, onClick }) => {
     : { color: "white" };
 
   const progressStyle = isColor ? { color: "#414141" } : { color: "white" };
+
+  const topEmojis = emojis.slice(0, 3);
 
   return (
     <div
@@ -168,9 +170,11 @@ const StudyCard = ({ study, onClick }) => {
         <p className="study-description">{study.description}</p>
         <div className="study-card-footer">
           <div className="study-icons">
-            <span>🙋‍♂️ {study.participants}</span>
-            <span>🔥 {study.activities}</span>
-            <span>❤️ {study.likes}</span>
+            {topEmojis.map(({ emoji, count }) => (
+              <span key={emoji}>
+                {emoji} {count}
+              </span>
+            ))}
           </div>
           <div className="study-points">{study.points}P 획득</div>
         </div>
