@@ -127,7 +127,7 @@ function HabitPage() {
         <div className="habitOutside">
           <Header
             title="title"
-            buttonTo1="/"
+            buttonTo1="/timer"
             buttonTo2="/"
             buttonTitle1="오늘의 집중"
             buttonTitle2="홈"
