@@ -3,13 +3,15 @@ import { useLocation } from "react-router-dom";
 import Header from "../components/commons/header/Header";
 import Gnb from "../components/commons/gnb/Gnb";
 import "../style/habit.css";
-import { fetchHabits, updateHabitChecked, updateHabits } from "../api/habitApi";
+import { fetchHabits, updateHabitChecked } from "../api/habitApi";
 import HabitModal from "../components/commons/modal/HabitModal";
+import { fetchStudy } from "../api/studyApi";
 
 function HabitPage() {
   const [todayTime, setTodayTime] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [habits, setHabits] = useState([]);
+  const [study, setStudy] = useState(null);
   const [loading, setLoading] = useState(true);
   const habitsRef = useRef(habits);
 
@@ -44,6 +46,9 @@ function HabitPage() {
   // 백엔드에서 습관 데이터 가져오기
   useEffect(() => {
     const loadHabits = async () => {
+      const studyData = await fetchStudy(studyId);
+      setStudy(studyData);
+
       setLoading(true);
       const data = await fetchHabits(studyId);
 
@@ -126,7 +131,7 @@ function HabitPage() {
       <div className="habit">
         <div className="habitOutside">
           <Header
-            title="title"
+            title={study ? study.name : "로딩 중..."} // study.name을 title로 설정
             buttonTo1="/timer"
             buttonTo2="/"
             buttonTitle1="오늘의 집중"
