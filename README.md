@@ -33,25 +33,91 @@ Database: PostgreSQL
 
 ### 김윤서
 
-스터디 (스터디 공유하기/스터디 삭제+수정/습관 기록표 조회/응원 이모지 남기기)
+- 스터디 공유하기 기능 구현
+- 스터디 삭제+수정 기능 구현 (권한 확인 후 수정 페이지로 이동)
+- Notion / github / 발표 자료 제작
+- 데일리 팀별 브리핑 발표
+- 회의록 작성
+- 스터디용 모달,toast 개발
 
 ### 김경호
 
-오늘의 집중
+- 오늘의 집중 페이지 구현
+- 타이머 기능 구현 및 수정,시간초과 등 상황별 화면 구현
+- 포인트 적립기능 구현
 
 ### 김민선
 
-오늘의 습관
+- 공통 컴포넌트 GNB(Global Navigation), header 개발, 모달 디자인 수정
+- 오늘의 습관 페이지 로딩 표시 및 빈 배열 처리 추가
+- 습관 check 상태 자정 초기화 기능 추가
+- 스터디+스터디 상세+오늘의 습관 페이지 연결
+- 습관 수정 및 삭제 기능 추가
+- 습관 조회 API 적용 및 check 상태 업데이트 기능 추가
+- FE/BE 프로젝트 기초 세팅 개발
+- 오늘의 습관 페이지 구현 (현재시간, 오늘의 습관 title, 오늘의 습관 list)
+- 오늘의 습관 API 기능 추가 및 render 배포
+- controller 병합
+- emoji controller 연결
+- 데이터베이스 시딩
+- 쿼리 파라미터를 이용한 페이지 라우팅
 
 ### 김차현
 
-홈 + 스터디 리스트 p + 스터디 만들기(스터디 정보입력)
+- 공통 컴포넌트 Toast 개발
+- 스터디 리스트 페이지 + 스터디 만들기 페이지 렌더링 (스터디 정보입력)
+- 스터디 리스트 페이지 포인트 및 이모지, 진행일수 연동
+- 스터디 생성 및 목록 프론트엔드 api 연동
+- 스터디 만들기 페이지 redirection기능 및 배경선택 defalult값 추가, 패스워드 input 태그 토글기능 추가
+- 스터디 만들기 페이지 정보 전부 입력시 만들기 기능 활성화되는 로직 구현
+- 스터디 리스트, 스터디 만들기 페이지 API 엔드포인트 설계 및 스키마 수정
+- 스터디 리스트, 스터디 만들기 페이지 API 구현
+- 쿼리 파라미터를 이용한 페이지 라우팅
+- 스터디 리스트 페이지 더보기버튼, 검색기능, 드롭다운리스트 구현
 
 ### 천우승
 
-스터디 (스터디 공유하기/스터디 삭제+수정/습관 기록표 조회/응원 이모지 남기기)
+- 스터디 상세 페이지 기록표 조회 페이지 구현
+- 습관 기록표 제작
+- 이모지 기능 및 이모지 개수 추가
+- 중간발표 및 최종 발표때 공통 개요 발표
+- 공용 컴포넌트 모달 구현
 
 ## 파일 구조
+
+📦 프로젝트 루트
+┣ 📜.gitignore
+┣ 📜package-lock.json
+┣ 📜package.json
+┣ 📜README.md
+┣ 📂public
+┃ ┣ 📜favicon.png
+┃ ┗ 📜index.html
+┣ 📂src
+┃ ┣ 📂API
+┃ ┃ ┣ 📜StudyAPI.js
+┃ ┃ ┗ 📜UserAPI.js
+┃ ┣ 📂components
+┃ ┃ ┣ 📜CreateStudyPage.js
+┃ ┃ ┣ 📜StudyListPage.js
+┃ ┃ ┗ 📜Toast.js
+┃ ┣ 📂utils
+┃ ┃ ┣ 📜validateForm.js
+┃ ┃ ┗ 📜localStorageHelper.js
+┃ ┣ 📂pages
+┃ ┃ ┣ 📜HabitPage.js
+┃ ┃ ┣ 📜testPage.js
+┃ ┃ ┣ 📜Timer.js
+┃ ┃ ┗ 📜CreateStudyPage.js
+┃ ┗ 📂StudyDetail
+┃ ┣ 📜Emoji.js
+┃ ┣ 📜HabitRecord.js
+┃ ┣ 📜Introduce.js
+┃ ┣ 📜StudyDashboard.js
+┃ ┗ 📜StudyDetail.js
+┣ 📂styles
+┃ ┗ 📜global.css
+┗ 📜App.js
 
 # 팀 내 컨벤션
 
@@ -109,5 +175,3 @@ Database: PostgreSQL
 | 참고      | Ref(참고), Related to(관련), See also(참고) |
 
 ## 구현 홈페이지
-
-## 프로젝트 회고록
