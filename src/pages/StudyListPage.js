@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/StudyListPage.css";
 import Gnb from "../components/commons/gnb/Gnb";
 import { fetchStudies } from "../api/studyApi";
+
+const calculateProgressDays = (createdAt) => {
+  const createdDate = new Date(createdAt);
+  const currentDate = new Date();
+  const timeDifference = currentDate - createdDate;
+  return Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+};
 
 const StudyListPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,8 +21,12 @@ const StudyListPage = () => {
 
   useEffect(() => {
     const fetchStudiesData = async () => {
-      const studiesData = await fetchStudies();
-      setStudies(studiesData);
+      try {
+        const studiesData = await fetchStudies();
+        setStudies(studiesData);
+      } catch (error) {
+        console.error("스터디 데이터 가져오기 실패:", error);
+      }
     };
     fetchStudiesData();
   }, []);
@@ -26,13 +37,11 @@ const StudyListPage = () => {
     setRecentStudies(storedRecentStudies);
   }, []);
 
-  // 스터디 클릭 시 처리: 최근 조회 스터디에 추가 및 페이지 이동
   const handleStudyClick = (study) => {
     updateRecentStudies(study);
     navigate(`/study-detail?studyId=${study.id}`);
   };
 
-  // 최근 조회한 스터디 업데이트 함수
   const updateRecentStudies = (study) => {
     const updatedRecentStudies = [
       study,
@@ -42,23 +51,24 @@ const StudyListPage = () => {
     localStorage.setItem("recentStudies", JSON.stringify(updatedRecentStudies));
   };
 
-  // 검색 및 정렬 처리
-  const filteredStudies = studies.filter((study) =>
-    study.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const sortedStudies = filteredStudies.sort((a, b) => {
-    if (sortOption === "recent") {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    } else if (sortOption === "oldest") {
-      return new Date(a.createdAt) - new Date(b.createdAt);
-    } else if (sortOption === "highPoints") {
-      return b.points - a.points;
-    } else if (sortOption === "lowPoints") {
-      return a.points - b.points;
-    }
-    return 0;
-  });
+  const filteredAndSortedStudies = useMemo(() => {
+    return studies
+      .filter((study) =>
+        study.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .sort((a, b) => {
+        if (sortOption === "recent") {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        } else if (sortOption === "oldest") {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        } else if (sortOption === "highPoints") {
+          return b.points - a.points;
+        } else if (sortOption === "lowPoints") {
+          return a.points - b.points;
+        }
+        return 0;
+      });
+  }, [searchTerm, sortOption, studies]);
 
   const loadMore = () => setVisibleStudies((prev) => prev + 3);
 
@@ -104,8 +114,8 @@ const StudyListPage = () => {
           </div>
         </div>
         <div className="study-list">
-          {sortedStudies.length ? (
-            sortedStudies
+          {filteredAndSortedStudies.length ? (
+            filteredAndSortedStudies
               .slice(0, visibleStudies)
               .map((study) => (
                 <StudyCard
@@ -120,7 +130,7 @@ const StudyListPage = () => {
             </p>
           )}
         </div>
-        {visibleStudies < sortedStudies.length && (
+        {visibleStudies < filteredAndSortedStudies.length && (
           <button className="load-more" onClick={loadMore}>
             더보기
           </button>
@@ -130,7 +140,7 @@ const StudyListPage = () => {
   );
 };
 
-const StudyCard = ({ study, onClick }) => {
+const StudyCard = ({ study, onClick, emojis = [] }) => {
   const isColor = /^#([0-9A-F]{3}){1,2}$/i.test(study.background);
 
   const cardStyle = isColor
@@ -147,6 +157,10 @@ const StudyCard = ({ study, onClick }) => {
 
   const progressStyle = isColor ? { color: "#414141" } : { color: "white" };
 
+  const topEmojis = emojis.slice(0, 3);
+
+  const progressDays = calculateProgressDays(study.createdAt);
+
   return (
     <div
       className={isColor ? "study-card" : "study-card image-background"}
@@ -162,15 +176,17 @@ const StudyCard = ({ study, onClick }) => {
             의 {study.name}
           </h3>
           <span className="study-progress" style={progressStyle}>
-            {study.progressDays}일째 진행 중
+            {progressDays}일째 진행 중
           </span>
         </div>
         <p className="study-description">{study.description}</p>
         <div className="study-card-footer">
           <div className="study-icons">
-            <span>🙋‍♂️ {study.participants}</span>
-            <span>🔥 {study.activities}</span>
-            <span>❤️ {study.likes}</span>
+            {topEmojis.map(({ emoji, count }) => (
+              <span key={emoji}>
+                {emoji} {count}
+              </span>
+            ))}
           </div>
           <div className="study-points">{study.points}P 획득</div>
         </div>
