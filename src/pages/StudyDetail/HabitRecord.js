@@ -15,10 +15,9 @@ const HabitTable = () => {
   useEffect(() => {
     const fetchHabits = async () => {
       try {
-        const response = await fetch('https://two-forest-of-study-4-be.onrender.com/habits');
+        const response = await fetch(`https://two-forest-of-study-4-be.onrender.com/habits?studyId=${studyId}`);
         const data = await response.json();
-        const filteredHabits = data.filter(habit => habit.studyId === studyId);
-        setHabits(filteredHabits);
+        setHabits(data);
       } catch (error) {
         console.error('Error fetching habits:', error);
       }
@@ -26,10 +25,9 @@ const HabitTable = () => {
 
     const fetchCompletedHabits = async () => {
       try {
-        const response = await fetch('https://two-forest-of-study-4-be.onrender.com/records/completedHabits');
+        const response = await fetch(`https://two-forest-of-study-4-be.onrender.com/records/completedHabits?studyId=${studyId}`);
         const data = await response.json();
-        const filteredCompleted = data.filter(record => record.studyId === studyId);
-        setCompletedHabits(filteredCompleted);
+        setCompletedHabits(data);
       } catch (error) {
         console.error('Error fetching completed habits:', error);
       }
@@ -42,13 +40,15 @@ const HabitTable = () => {
       setLoading(false);
     };
 
-    fetchData();
+    if (studyId) {
+      fetchData();
+    }
   }, [studyId]);
 
   const isHabitCompleted = (habitId, day) => {
     return completedHabits.some(completed => {
       const completedDate = new Date(completed.completeDate);
-      return completed.habitId === habitId && (completedDate.getDay() === (day === 6 ? 0 : day + 1));
+      return completed.habitId === habitId && completedDate.getDay() === day;
     });
   };
 
