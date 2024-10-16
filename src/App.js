@@ -6,6 +6,7 @@ import TestPage from "./pages/testPage.js";
 import StudyDetail from "./pages/StudyDetail/StudyDetail.js";
 import StudyListPage from "./pages/StudyListPage"; //스터디 리스트 페이지
 import CreateStudyPage from "./pages/CreateStudyPage";
+import Timer from "./pages/Timer.js";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/modal" element={<Modal />} />
         <Route path="/study-detail" element={<StudyDetail />} />
         <Route path="/" element={<StudyListPage />} />
+        <Route path="/timer" element={<Timer />} />
       </Routes>
     </Router>
   );
