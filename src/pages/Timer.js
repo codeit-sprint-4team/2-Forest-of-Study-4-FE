@@ -124,7 +124,7 @@ const Timer = () => {
       setTimeLeft(seconds);
       setIsEditing(false);
     }
-  };
+  }; //
 
   return (
     <div className="timer-page">

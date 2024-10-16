@@ -65,6 +65,21 @@
   font-size: 48px;
   cursor: pointer;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.timer-input {
+  font-size: 48px; /* 타이머와 동일한 글꼴 크기 */
+  text-align: center;
+  width: 150px; /* 타이머 시간과 동일한 너비 */
+}
+
+.overtime {
+  color: #818181; /* 초과 시간일 때 흐린 색상 */
+}
+
+.running {
+  color: red; /* 타이머가 진행 중일 때 빨간색 */
 }
 
 .button-container {
