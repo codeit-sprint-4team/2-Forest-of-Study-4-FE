@@ -48,7 +48,7 @@ const HabitTable = () => {
   const isHabitCompleted = (habitId, day) => {
     return completedHabits.some(completed => {
       const completedDate = new Date(completed.completeDate);
-      return completed.habitId === habitId && completedDate.getDay() === day;
+      return completed.habitId === habitId && (completedDate.getDay() === (day === 6 ? 0 : day + 1));
     });
   };
 
