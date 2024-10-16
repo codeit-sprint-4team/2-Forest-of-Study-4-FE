@@ -7,13 +7,16 @@ export default function Gnb() {
 
   const showStudyButtonPaths = ["/", "/createStudy"];
 
-  // 버튼 클릭 시 페이지 이동
   const handleButtonClick = () => {
     navigate("/createStudy");
   };
 
   const handleImgClick = () => {
-    navigate("/");
+    if (location.pathname === "/") {
+      window.location.reload();
+    } else {
+      navigate("/");
+    }
   };
 
   return (

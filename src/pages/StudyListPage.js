@@ -53,8 +53,10 @@ const StudyListPage = () => {
 
   const filteredAndSortedStudies = useMemo(() => {
     return studies
-      .filter((study) =>
-        study.name.toLowerCase().includes(searchTerm.toLowerCase())
+      .filter(
+        (study) =>
+          study.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          study.nickname.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .sort((a, b) => {
         if (sortOption === "recent") {
@@ -78,17 +80,19 @@ const StudyListPage = () => {
       <section className="frame recent-studies">
         <h2>최근 조회한 스터디</h2>
         <div className="study-list">
-          {recentStudies.length ? (
-            recentStudies.map((study) => (
-              <StudyCard
-                key={study.id}
-                study={study}
-                onClick={() => handleStudyClick(study)}
-              />
-            ))
-          ) : (
-            <p className="empty-studies-message">아직 조회한 스터디가 없어요</p>
-          )}
+          {recentStudies.length
+            ? recentStudies.map((study) => (
+                <StudyCard
+                  key={study.id}
+                  study={study}
+                  onClick={() => handleStudyClick(study)}
+                />
+              ))
+            : studies.length === 0 && (
+                <p className="empty-studies-message">
+                  아직 조회한 스터디가 없어요
+                </p>
+              )}
         </div>
       </section>
 
@@ -114,21 +118,19 @@ const StudyListPage = () => {
           </div>
         </div>
         <div className="study-list">
-          {filteredAndSortedStudies.length ? (
-            filteredAndSortedStudies
-              .slice(0, visibleStudies)
-              .map((study) => (
-                <StudyCard
-                  key={study.id}
-                  study={study}
-                  onClick={() => handleStudyClick(study)}
-                />
-              ))
-          ) : (
-            <p className="empty-studies-message">
-              아직 둘러 볼 스터디가 없어요
-            </p>
-          )}
+          {filteredAndSortedStudies.length
+            ? filteredAndSortedStudies
+                .slice(0, visibleStudies)
+                .map((study) => (
+                  <StudyCard
+                    key={study.id}
+                    study={study}
+                    onClick={() => handleStudyClick(study)}
+                  />
+                ))
+            : searchTerm && (
+                <p className="empty-studies-message">검색 결과가 없습니다.</p>
+              )}
         </div>
         {visibleStudies < filteredAndSortedStudies.length && (
           <button className="load-more" onClick={loadMore}>
